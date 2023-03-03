@@ -6,6 +6,9 @@
     "iisExpress": {
       "applicationUrl": "http://localhost:8342",
       "sslPort": 44311
+    },
+    "iis": {
+      "applicationUrl": "http://my.aspnetcoreapp.com"
     }
   },
   "profiles": {
@@ -15,6 +18,14 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "Local IIS": {
+        "commandName": "IIS",
+        "launchBrowser": true,
+        "launchUrl": "http://my.aspnetcoreapp.com",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       }
     },
     "MMABackend": {
