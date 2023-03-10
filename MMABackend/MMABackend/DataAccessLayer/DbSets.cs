@@ -8,5 +8,15 @@ namespace MMABackend.DataAccessLayer
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
+        public DbSet<ProductProperty> ProductProperties { get; set; }
+        public DbSet<PropertyKey> PropertyKeys { get; set; }
+        public DbSet<PropertyValue> PropertyValues { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Shop> Shops { get; set; }
+        public DbSet<Market> Markets { get; set; }
+        public DbSet<MarketShop> MarketShops { get; set; }
+
+
     }
 }
