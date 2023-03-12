@@ -33,7 +33,7 @@ namespace MMABackend.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            return Ok();
+            return Ok("It is working");
             // int milliseconds = 10000;
             // Thread.Sleep(milliseconds);
             // var ip = HttpContext.Connection.RemoteIpAddress?.ToString();

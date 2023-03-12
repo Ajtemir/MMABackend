@@ -9,6 +9,5 @@ namespace MMABackend.DomainModels.Common
         public int? MarketId { get; set; }
         public Market Market { get; set; }
         public int Stage { get; set; } = 1;
-        public Geometry Coordinates { get; set; }
     }
 }

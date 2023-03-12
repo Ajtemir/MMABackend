@@ -31,8 +31,9 @@ namespace MMABackend
             services.AddCors();
             services.AddDbContext<UnitOfWork>(options =>
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                        x => { x.UseNetTopologySuite(); });
+                    options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                    // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    //     x => { x.UseNetTopologySuite(); });
                 }
             );
             services.AddControllers();
