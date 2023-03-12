@@ -57,6 +57,7 @@ namespace MMABackend
             app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

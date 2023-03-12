@@ -24,6 +24,7 @@
       <Folder Include="Managers" />
       <Folder Include="Utils" />
       <Folder Include="ViewModels\Common" />
+      <Folder Include="wwwroot" />
     </ItemGroup>
 
 </Project>
