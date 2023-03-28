@@ -5,6 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MailKit" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.15" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
@@ -22,8 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Managers" />
-      <Folder Include="Utils" />
+      <Folder Include="Helpers" />
+      <Folder Include="Managers\Common" />
+      <Folder Include="Migrations" />
       <Folder Include="ViewModels\Common" />
     </ItemGroup>
 
@@ -31,12 +35,14 @@
         <None Include="wwwroot\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="LocalDatabase.db">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="LocalDatabase.db">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <Compile Remove="Migrations\20230314162207_init.cs" />
+      <Compile Remove="Migrations\20230314162207_init.Designer.cs" />
     </ItemGroup>
 
 </Project>

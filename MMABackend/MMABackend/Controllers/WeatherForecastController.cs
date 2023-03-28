@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MMABackend.DataAccessLayer;
@@ -34,24 +35,6 @@ namespace MMABackend.Controllers
         public ActionResult Get()
         {
             return Ok("It is working");
-            // int milliseconds = 10000;
-            // Thread.Sleep(milliseconds);
-            // var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-            // _uow.IpRequestCounters.Add(new IpRequestCounter { Ip = ip });
-            // _uow.SaveChanges();
-            // var dict = _uow.IpRequestCounters
-            //     .GroupBy(x => x.Ip)
-            //     .Select(x => new Counter(x.Key,x.Count()));
-            // return Ok(dict);
-            // var rng = new Random();
-            // return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            //     {
-            //         Date = DateTime.Now.AddDays(index),
-            //         TemperatureC = rng.Next(-20, 55),
-            //         Summary = Summaries[rng.Next(Summaries.Length)],
-            //         Ip = HttpContext.Connection.RemoteIpAddress?.ToString()
-            //     })
-            //     .ToArray();
         }
 
         private class Counter
