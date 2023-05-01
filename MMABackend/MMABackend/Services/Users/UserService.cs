@@ -26,25 +26,25 @@ namespace MMABackend.Services.Users
         {
             if (_uow.Users.FirstOrDefault(x => x.Email == user.Email) is not null) 
                 throw new Exception("User already has registered");
-            user.Password = _manager.MakePasswordHashed(user.Password);
+            // user.Password = _manager.MakePasswordHashed(user.Password);
             _uow.Users.Add(user);
             _uow.SaveChanges();
         }
 
-        public User GetUserByCredentials(UserCredentials credentials)
+        public User GetUserByCredentials(UserCredentialsViewModel credentials)
         {
             var user = _uow.Users.FirstOrDefault(x => x.Email == credentials.Email);
             if (user is null) throw new Exception("User by email not found");
             var hashedPassword = _manager.MakePasswordHashed(credentials.Password);
-            if (user.Password != hashedPassword) throw new Exception("Incorrect user's password");
+            // if (user.Password != hashedPassword) throw new Exception("Incorrect user's password");
             return user;
         }
 
-        public BothToken GetBothTokens(User user)
+        public BothTokenViewModel GetBothTokens(User user)
         {
             var accessToken = _manager.GetAccessToken(user);
             var refreshToken = _manager.GetRefreshToken(user);
-            return new BothToken
+            return new BothTokenViewModel
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
@@ -76,7 +76,7 @@ namespace MMABackend.Services.Users
                 {
                     var user = _uow.Users.FirstOrDefault(x => x.Email == model.Email) ??
                                throw new Exception("As restoring password user entity not found");
-                    user.Password = _manager.MakePasswordHashed(model.NewPassword);
+                    // user.Password = _manager.MakePasswordHashed(model.NewPassword);
                     _uow.SaveChanges();
                 }
                 throw new Exception("Secret words are not same." +

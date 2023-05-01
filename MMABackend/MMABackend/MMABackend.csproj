@@ -8,6 +8,7 @@
         <PackageReference Include="MailKit" Version="3.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.15" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.15" />
         <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
@@ -25,10 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers" />
       <Folder Include="Managers\Common" />
-      <Folder Include="Migrations" />
-      <Folder Include="ViewModels\Common" />
     </ItemGroup>
 
     <ItemGroup>

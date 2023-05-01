@@ -13,7 +13,6 @@ using MMABackend.DomainModels.Common;
 namespace MMABackend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     [Route("")]
     public class WeatherForecastController : ControllerBase
     {

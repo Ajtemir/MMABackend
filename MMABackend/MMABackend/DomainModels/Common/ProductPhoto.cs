@@ -14,7 +14,7 @@ namespace MMABackend.DomainModels.Common
         public int Id { get; set; }
         public string Path { get; set; }
         [JsonIgnore]
-        public DateTime UploadTime { get; set; } = DateTime.Now;
+        public DateTime? UploadTime { get; set; } = DateTime.Now;
         [JsonIgnore]
         public int ProductId { get; set; }
         [ForeignKey(nameof(ProductId))]

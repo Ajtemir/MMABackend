@@ -10,17 +10,17 @@ namespace MMABackend.ViewModels.User
         string RefreshToken { get; set; }
     }
     
-    public class OnlyAccessToken : IAccessToken
+    public class OnlyAccessTokenViewModel : IAccessToken
     {
         public string AccessToken { get; set; }
     }
 
-    public class OnlyRefreshToken : IRefreshToken
+    public class OnlyRefreshTokenViewModel : IRefreshToken
     {
         public string RefreshToken { get; set; }
     }
     
-    public class BothToken : IAccessToken, IRefreshToken
+    public class BothTokenViewModel : IAccessToken, IRefreshToken
     {
         public string RefreshToken { get; set; }
         public string AccessToken { get; set; }

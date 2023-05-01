@@ -1,8 +1,7 @@
 namespace MMABackend.ViewModels.User
 {
-    public class UserCredentials
+    public class GetProfileViewModel
     {
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,8 @@ namespace MMABackend.DomainModels.Common
         [StringLength(maximumLength: 255)] 
         public string Description { get; set; } = string.Empty;
         public decimal? Price { get; set; } = null;
-        public int UserId { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         [JsonIgnore]
         public User User { get; set; }

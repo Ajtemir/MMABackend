@@ -35,12 +35,12 @@ namespace MMABackend.Managers.Users
                 claims: new List<Claim>
                 {
                     new (AccessTokenConfig.UserIdClaim, AccessTokenConfig.GetPropertyAsIdentifier(user)),
-                    new (AccessTokenConfig.UserRoleClaim, user.Role.ToString()),
+                    new (AccessTokenConfig.UserRoleClaim, ""),
                 },
                 expires: now.Add(TimeSpan.FromMinutes(AccessTokenConfig.LifetimeInMinutes)),
                 signingCredentials: new SigningCredentials(AccessTokenConfig.GetSymmetricSecurityKey(), AccessTokenConfig.Algorithm));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            return encodedJwt;
+            return "bearer " + encodedJwt;
         }
 
         public string GetRefreshToken(User user)
@@ -53,12 +53,12 @@ namespace MMABackend.Managers.Users
                 claims: new List<Claim>
                 {
                     new (RefreshTokenConfig.UserIdClaim, RefreshTokenConfig.GetPropertyAsIdentifier(user)),
-                    new (RefreshTokenConfig.UserRoleClaim, user.Role.ToString()),
+                    new (RefreshTokenConfig.UserRoleClaim, ""),
                 },
                 expires: now.Add(TimeSpan.FromMinutes(RefreshTokenConfig.LifetimeInMinutes)),
                 signingCredentials: new SigningCredentials(RefreshTokenConfig.GetSymmetricSecurityKey(), RefreshTokenConfig.Algorithm));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            return encodedJwt;
+            return "bearer" + encodedJwt;
         }
 
         public async Task SendEmailAsync(string email, string secretWord)

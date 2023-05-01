@@ -7,11 +7,12 @@ namespace MMABackend.ViewModels.User
         
         public static implicit operator DomainModels.Common.User(UserRegistrationViewModel model)
         {
-            return new DomainModels.Common.User
+            var user = new DomainModels.Common.User
             {
                 Email = model.Email,
-                Password = model.Password,
+                UserName = model.Email,
             };
+            return user;
         }
     }
 }
