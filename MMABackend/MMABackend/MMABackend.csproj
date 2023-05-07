@@ -28,6 +28,7 @@
     <ItemGroup>
       <Folder Include="Managers\Common" />
       <Folder Include="wwwroot\avatars" />
+      <Folder Include="wwwroot\categories" />
     </ItemGroup>
 
     <ItemGroup>

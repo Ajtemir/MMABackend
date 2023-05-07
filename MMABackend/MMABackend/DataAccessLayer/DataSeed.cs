@@ -9,31 +9,42 @@ namespace MMABackend.DataAccessLayer
 {
     public static class DataSeeding
     {
-        private static void CategorySeed(this UnitOfWork uow)
-        {
-            uow.Categories.AddRange(
-                        new Category
-                        {
-                            Id = 1,
-                            Name = "Автомобили",
-                            ParentCategoryId = null,
-                        },
-                        new Category
-                        {
-                            Id = 2,
-                            Name = "Одежда",
-                            ParentCategoryId = null,
-                        }
-            );
-            uow.SaveChangesWithIdentityInsert<Category>();
-        }
         public static void CommonSeeding(this IServiceProvider serviceProvider)
         {
             var uow = serviceProvider?.GetService<UnitOfWork>() ?? throw new ArgumentNullException(nameof(serviceProvider));
             uow.CategorySeed();
             uow.ProductSeeding();
             uow.ProductImageSeeding();
+            
         }
+        
+        
+        private static void CategorySeed(this UnitOfWork uow)
+        {
+            var folderName = "/images/";
+            uow.Categories.AddRange(
+                        new Category
+                        {
+                            Id = 1,
+                            Name = "Товары",
+                            ImagePath = folderName + "809049f5-00cc-41b9-80ee-9f5437897d3f.png",
+                        },
+                        new Category
+                        {
+                            Id = 2,
+                            Name = "Транспорт",
+                            ImagePath = folderName + "b86e7369-e6ab-42bb-bb09-d79c8ed85530.png",
+                        },
+                        new Category
+                        {
+                            Id = 3,
+                            Name = "Домашняя утварь",
+                            ImagePath = folderName + "b250dcb4-2967-44d6-9295-e154cd43e77e.png",
+                        }
+            );
+            uow.SaveChangesWithIdentityInsert<Category>();
+        }
+        
 
         private static void ProductSeeding(this UnitOfWork uow)
         {

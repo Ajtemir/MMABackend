@@ -6,7 +6,7 @@ namespace MMABackend.ViewModels.Common
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int IconId { get; set; }
+        public string Path { get; set; }
 
         public static explicit operator ReadCategoryViewModel(Category model)
         {
@@ -14,7 +14,7 @@ namespace MMABackend.ViewModels.Common
             {
                 Id = model.Id,
                 Name = model.Name,
-                IconId = model.IconId,
+                Path = model.ImagePath,
             };
         }
     }

@@ -22,8 +22,8 @@ namespace MMABackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("IconId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasMaxLength(100)
