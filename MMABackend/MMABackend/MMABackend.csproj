@@ -27,14 +27,12 @@
 
     <ItemGroup>
       <Folder Include="Managers\Common" />
+      <Folder Include="wwwroot\avatars" />
     </ItemGroup>
 
     <ItemGroup>
         <None Include="wwwroot\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="LocalDatabase.db">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

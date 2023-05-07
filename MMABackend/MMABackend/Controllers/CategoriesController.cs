@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using MMABackend.CustomMiddlewares;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.ViewModels.Common;
@@ -11,6 +12,7 @@ namespace MMABackend.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public class CategoriesController : ControllerBase
     {
         private readonly UnitOfWork _uow;

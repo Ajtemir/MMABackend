@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,9 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.Helpers.Common;
+using MMABackend.ViewModels.Product;
 
 namespace MMABackend.Controllers
 {
+    [ApiController]
+    [Route("[controller]/[action]")]
     public class FavoritesController : ControllerBase
     {
         private readonly UnitOfWork _uow;
@@ -19,31 +23,34 @@ namespace MMABackend.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Product>> Index(GetAllFavoritesViewModel model)
+        public ActionResult<List<ReadProductViewModel>> GetFavorites([FromQuery]GetAllFavoritesViewModel model)
         {
             var userId  = _uow.GetUserIdByEmailOrError(model.Email);
             var products = _uow.Favorites.Include(x => x.Product)
+                .Include(x=>x.User)
                 .Where(x => x.UserId == userId).Select(x => x.Product).ToList();
             return Ok(products);
         }
 
         [HttpGet]
-        public ActionResult SetFavorite(FavoriteViewModel model)
+        public ActionResult SetFavorite([FromQuery]FavoriteViewModel model)
         {
             _uow.Favorites.Add(new Favorite
             {
                 ProductId = model.ProductId,
-                UserId = _uow.GetUserByEmail(model.Email).Id,
+                UserId = _uow.GetUserByEmailOrError(model.Email).Id,
             });
             _uow.SaveChanges();
             return Ok();
         }
         
         [HttpGet]
-        public ActionResult UnsetFavorite(FavoriteViewModel model)
+        public ActionResult UnsetFavorite([FromQuery]FavoriteViewModel model)
         {
             var userId  = _uow.GetUserIdByEmailOrError(model.Email);
-            var favorite = _uow.Favorites.FirstOrError(x=>x.ProductId == model.ProductId && x.UserId == userId);
+            var favorite = _uow.Favorites
+                .FirstOrDefault(x=>x.ProductId == model.ProductId && x.UserId == userId) ??
+                           throw new Exception("There is no such relation");
             _uow.Favorites.Remove(favorite);
             _uow.SaveChanges();
             return Ok();

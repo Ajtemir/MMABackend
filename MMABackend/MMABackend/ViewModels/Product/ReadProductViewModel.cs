@@ -7,7 +7,7 @@ namespace MMABackend.ViewModels.Product
     {
         public int Id { get; set; }
         public string Description { get; set; } = string.Empty;
-        public decimal? Price { get; set; } = null;
+        public decimal? Price { get; set; }
         public int CategoryId { get; set; }
         public string UserId { get; set; }
         public string SellerEmail { get; set; }
@@ -19,11 +19,11 @@ namespace MMABackend.ViewModels.Product
             {
                 Id = entity.Id,
                 UserId = entity.UserId,
-                SellerEmail = entity.User.Email,
+                SellerEmail = entity.User?.Email,
                 Description = entity.Description,
                 Price = entity.Price,
                 CategoryId = entity.CategoryId,
-                Images = entity.Photos.Select(x=>x.Path).ToList(),
+                Images = entity.Photos?.Select(x=>x.Path).ToList(),
             };
         }
     }

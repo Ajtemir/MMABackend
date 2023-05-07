@@ -10,10 +10,14 @@ namespace MMABackend.StartUpConfigurations
         {
             var uow = serviceProvider?.GetService<UnitOfWork>()
                           ?? throw new ArgumentNullException(nameof(serviceProvider));
-            uow.Database.EnsureDeleted();
-            uow.Database.EnsureCreated();
-            serviceProvider.InitializeUsersAndRoles();
-            serviceProvider.CommonSeeding();
+            // uow.Database.EnsureDeleted();
+            var created = uow.Database.EnsureCreated();
+            if (created)
+            {
+                serviceProvider.InitializeUsersAndRoles();
+                serviceProvider.CommonSeeding();
+            }
+      
         }
     }
 }

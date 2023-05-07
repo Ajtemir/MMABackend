@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using MMABackend.Configurations.Users;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.Helpers.Common;
+using MMABackend.ViewModelResults.Common;
 using MMABackend.ViewModels.Product;
 
 namespace MMABackend.Controllers
@@ -23,6 +25,19 @@ namespace MMABackend.Controllers
         }
 
         [HttpGet]
+        public ActionResult<GetProductByIdResult> GetById([FromQuery]GetByEmailViewModel model)
+        {
+            var user = _uow.GetUserByEmailOrError(model.Email);
+            var query = _uow.Products
+                .Include(x => x.Favorites.Where(f => f.UserId == user.Id)).ThenInclude(x => x.User);
+            var product = _uow.Products
+                .Include(x => x.Favorites.Where(f=>f.UserId==user.Id)).ThenInclude(x => x.User)
+                .FirstOrDefault(x => x.Id == model.ProductId);
+            return Ok((GetProductByIdResult)product);
+
+        }
+
+        [HttpGet]
         public ActionResult<List<Product>> Index(string email = null, bool isNew = false)
         {
             var entities = _uow.Products
@@ -30,11 +45,15 @@ namespace MMABackend.Controllers
                 .Include(x => x.User)
                 .Include(x => x.Photos)
                 .Where(x=>x.User.Email == email || email == null);
-            if(isNew) entities = entities.OrderBy(x=>x.CreatedDate);
+            if(isNew) entities = entities.OrderByDescending(x=>x.CreatedDate);
             List<ReadProductViewModel> result = entities.Select(x=>(ReadProductViewModel)x).ToList();
-            return Ok(result);
+            return Ok(new Response{data = result});
         }
-        
+
+        class Response
+        {
+            public  List<ReadProductViewModel> data { get; set; }
+        }
         
         
         [HttpPost]
@@ -42,7 +61,7 @@ namespace MMABackend.Controllers
         public ActionResult<Product> Add(AddProductViewModel model)
         {
             var email = HttpContext.GetEmailFromContext();
-            var user = _uow.GetUserByEmail(email);
+            var user = _uow.GetUserByEmailOrError(email);
             Product product = model;
             product.UserId = user.Id;
             _uow.Products.Add(product);
@@ -53,7 +72,7 @@ namespace MMABackend.Controllers
         [HttpPost]
         public ActionResult<Product> AddWithEmail(AddProductWithEmailViewModel model)
         {
-            var user = _uow.GetUserByEmail(model.UserEmail);
+            var user = _uow.GetUserByEmailOrError(model.UserEmail);
             Product product = model;
             product.UserId = user.Id;
             _uow.Products.Add(product);

@@ -48,8 +48,8 @@ namespace MMABackend.Controllers
         }
         
         
-        [HttpPost]
-        public async Task<IActionResult> AddImage([FromForm]AddProductImageViewModel model)
+        [HttpPost("{productId:required:int}")]
+        public async Task<IActionResult> AddImage(int productId, [FromForm]AddProductImageViewModel model)
         {
             foreach (var uploadedFile in model.Images)
             {
@@ -59,7 +59,7 @@ namespace MMABackend.Controllers
                 string path =  folder + fileName + extension;
                 await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                     await uploadedFile.CopyToAsync(fileStream);
-                var file = new ProductPhoto { ProductId = model.ProductId, Path = path,  };
+                var file = new ProductPhoto { ProductId = productId, Path = path,  };
                 _uow.ProductPhotos.Add(file);
             }
             await _uow.SaveChangesAsync();

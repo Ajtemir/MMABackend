@@ -53,13 +53,15 @@ namespace MMABackend
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddSwaggerConfigurations();
+            // services.AddScoped<ValidationFilterAttribute>();
+            // services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UnitOfWork uow, IServiceProvider serviceProvider)
         {
             app.UseStaticFiles();
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            // app.UseMiddleware<ExceptionHandlingMiddleware>();
             if (env.IsDevelopment() == env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
