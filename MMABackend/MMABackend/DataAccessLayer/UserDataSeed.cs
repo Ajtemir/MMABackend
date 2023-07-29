@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -55,6 +57,7 @@ namespace MMABackend.DataAccessLayer
                 AssignRoles(serviceProvider, user.Email, roles);
             }
             context.SaveChangesAsync();
+            FillAvatars(context);
         }
 
         private static async Task AssignRoles(IServiceProvider services, string email, string[] roles)
@@ -62,6 +65,22 @@ namespace MMABackend.DataAccessLayer
             UserManager<User> userManager = services.GetService<UserManager<User>>()!;
             User user = await userManager.FindByEmailAsync(email);
             await userManager.AddToRolesAsync(user, roles);
+        }
+
+        private static async void FillAvatars(UnitOfWork uow)
+        {
+            var avatars = GetAvatars(uow);
+            uow.UserAvatars.AddRange(avatars);
+            await uow.SaveChangesAsync();
+        }
+
+        private static IEnumerable<UserAvatar> GetAvatars(UnitOfWork uow)
+        {
+            return from login in Logins let path = "/avatars/" let ext = ".jpg" select new UserAvatar
+            {
+                Path = path + login + ext,
+                UserId = uow.Users.FirstOrDefault(x => x.UserName.Equals(login))?.Id,
+            };
         }
 
     }

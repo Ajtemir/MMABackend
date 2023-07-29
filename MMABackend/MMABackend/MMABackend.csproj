@@ -26,8 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Managers\Common" />
-      <Folder Include="wwwroot\avatars" />
       <Folder Include="wwwroot\categories" />
     </ItemGroup>
 
@@ -35,11 +33,21 @@
         <None Include="wwwroot\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Remove="Managers\Common\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Migrations\20230314162207_init.cs" />
       <Compile Remove="Migrations\20230314162207_init.Designer.cs" />
+      <Compile Remove="Managers\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Managers\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Managers\Common\**" />
     </ItemGroup>
 
 </Project>

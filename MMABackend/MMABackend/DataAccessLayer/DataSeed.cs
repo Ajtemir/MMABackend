@@ -90,25 +90,25 @@ namespace MMABackend.DataAccessLayer
                 {
                     Id = 1,
                     ProductId = 1,
-                    Path = folderName + "23371fa9-7014-45e6-9887-e468fb57bc9c.png",
+                    Path = folderName + "1_photo.jpg",
                 },
                 new ProductPhoto
                 {
                     Id = 2,
                     ProductId = 2,
-                    Path = folderName + "8f5e3f2e-40dc-4552-839f-85e4252a4b84.jpg",
+                    Path = folderName + "2_photo.jpg",
                 },
                 new ProductPhoto
                 {
                     Id = 3,
                     ProductId = 3,
-                    Path = folderName + "ac9c793e-65b9-4109-b797-eb908b2f8c6e.png",
+                    Path = folderName + "3_photo.jpg",
                 },
                 new ProductPhoto
                 {
                     Id = 4,
                     ProductId = 4,
-                    Path = folderName + "fa86dbbd-b761-442d-9087-1f7d18ecf48c.png",
+                    Path = folderName + "4_photo.jpg",
                 }
             );
             uow.SaveChangesWithIdentityInsert<ProductPhoto>();
