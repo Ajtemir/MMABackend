@@ -48,6 +48,9 @@
 
     <ItemGroup>
       <Content Remove="Managers\Common\**" />
+      <Content Update="web.config">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
