@@ -57,16 +57,17 @@ namespace MMABackend.Controllers
         
         
         [HttpPost]
-        [Authorize(AuthenticationSchemes = AccessTokenConfig.SchemeName)]
+        // [Authorize(AuthenticationSchemes = AccessTokenConfig.SchemeName)]
         public ActionResult<Product> Add(AddProductViewModel model)
         {
-            var email = HttpContext.GetEmailFromContext();
+            // var email = HttpContext.GetEmailFromContext();
+            var email = model.UserEmail;
             var user = _uow.GetUserByEmailOrError(email);
             Product product = model;
             product.UserId = user.Id;
             _uow.Products.Add(product);
             _uow.SaveChanges();
-            return Ok(product.Id);
+            return Ok((ReadProductViewModel)product);
         }
         
         [HttpPost]

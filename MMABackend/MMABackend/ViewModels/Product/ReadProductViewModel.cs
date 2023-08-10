@@ -23,7 +23,7 @@ namespace MMABackend.ViewModels.Product
                 Description = entity.Description,
                 Price = entity.Price,
                 CategoryId = entity.CategoryId,
-                Images = entity.Photos?.Select(x=>x.Path).ToList(),
+                Images = entity.Photos?.Select(x=>x.Path).ToList() ?? new List<string>(),
             };
         }
     }
