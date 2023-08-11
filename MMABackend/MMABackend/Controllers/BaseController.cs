@@ -12,21 +12,57 @@ namespace MMABackend.Controllers
         {
             _logger = logger;
         }
-        protected ActionResult Execute(Func<ActionResult> func)
+
+        protected ActionResult Execute<T>(Func<T> func)
         {
             try
             {
-                return func.Invoke();
+                return Ok(func.Invoke());
             }
             catch (ApplicationException e)
             {
-                throw;
+                _logger.Log(LogLevel.Warning, e.Message);
+                return BadRequest(Result.Bad(e.Message));
             }
             catch (Exception e)
             {
-                throw;
+                _logger.Log(LogLevel.Error, e.Message);
+                return BadRequest(Result.Bad(e.Message));
             }
         }
     }
-    
+
+    public class Result<T> : Result
+    {
+   
+        public T Data { get; set; } = default;
+        public static Result<T> Ok(T data) => new()
+        {
+            IsOk = true,
+            Data = data,
+        };
+
+        public static Result<T> Bad(string message, T data) => new()
+        {
+            IsOk = false,
+            Message = message,
+            Data = data,
+        };
+    }
+
+    public class Result
+    {
+        public bool IsOk { get; set; } = false;
+        public string Message { get; set; } = null;
+        public static Result Ok() => new()
+        {
+            IsOk = true,
+        };
+        
+        public static Result Bad(string message) => new()
+        {
+            IsOk = false,
+            Message = message,
+        };
+    }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MMABackend.CustomMiddlewares;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
@@ -17,13 +18,13 @@ namespace MMABackend.Controllers
     [ApiController]
     [Route("[controller]/[action]")]
     // [ServiceFilter(typeof(ValidationFilterAttribute))]
-    public class CategoriesController : ControllerBase
+    public partial class CategoriesController : BaseController
     {
         private readonly UnitOfWork _uow;
         private readonly IWebHostEnvironment _appEnvironment;
 
-        
-        public CategoriesController(UnitOfWork uow, IWebHostEnvironment appEnvironment)
+
+        public CategoriesController(UnitOfWork uow, IWebHostEnvironment appEnvironment, ILogger<CategoriesController> logger) : base(logger)
         {
             _uow = uow;
             _appEnvironment = appEnvironment;

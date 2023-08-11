@@ -5,7 +5,6 @@ namespace MMABackend.ViewModels.Product
         public string Description { get; set; } = string.Empty;
         public decimal? Price { get; set; } = null;
         public int CategoryId { get; set; }
-        public string UserEmail { get; set; } 
         
         public static implicit operator DomainModels.Common.Product(AddProductViewModel model)
         {

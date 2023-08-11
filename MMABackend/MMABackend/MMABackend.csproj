@@ -43,6 +43,9 @@
       <Compile Remove="Migrations\20230314162207_init.cs" />
       <Compile Remove="Migrations\20230314162207_init.Designer.cs" />
       <Compile Remove="Managers\Common\**" />
+      <Compile Update="Controllers\GetCategoryPropertiesAndTheirValues.cs">
+        <DependentUpon>CategoriesController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
