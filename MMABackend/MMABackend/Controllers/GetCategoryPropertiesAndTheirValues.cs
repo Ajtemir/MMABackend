@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MMABackend.Helpers.Common;
 
 namespace MMABackend.Controllers
 {
@@ -16,9 +17,11 @@ namespace MMABackend.Controllers
                 var propertyKeyAndValuesOfCategory = _uow.Categories
                     .Include(x => x.PropertyKeys)
                     .ThenInclude(x => x.PropertyValues)
-                    .FirstOrDefault(x => x.Id == categoryId);
+                    .FirstOrError(x => x.Id == categoryId);
                 return propertyKeyAndValuesOfCategory;
             });
         }
     }
+    
+    public class CategoryPropertiesAndTheirValuesResult()
 }

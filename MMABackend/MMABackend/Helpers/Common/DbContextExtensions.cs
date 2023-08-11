@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
@@ -20,10 +21,11 @@ namespace MMABackend.Helpers.Common
                    throw new Exception("User not found by email");
         }
         
-        public static T FirstOrError<T>(this IQueryable<T> collection, Predicate<T> predicate, string errorMessage = null)
+        public static T FirstOrError<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, string errorMessage = null) where T: class
         {
-            return collection.FirstOrDefault(x=>predicate(x)) ??
-                   throw new Exception(errorMessage ?? $"Not found entity {nameof(T)}");
+            var elem = source.FirstOrDefault(predicate);
+            if(elem == null) throw new Exception(errorMessage ?? $"Not found entity {nameof(T)}");
+            return elem;
         }
     }
 }
