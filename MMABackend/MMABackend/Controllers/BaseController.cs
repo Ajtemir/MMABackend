@@ -34,20 +34,7 @@ namespace MMABackend.Controllers
 
     public class Result<T> : Result
     {
-   
         public T Data { get; set; } = default;
-        public static Result<T> Ok(T data) => new()
-        {
-            IsOk = true,
-            Data = data,
-        };
-
-        public static Result<T> Bad(string message, T data) => new()
-        {
-            IsOk = false,
-            Message = message,
-            Data = data,
-        };
     }
 
     public class Result
@@ -59,10 +46,24 @@ namespace MMABackend.Controllers
             IsOk = true,
         };
         
+        public static Result<TOk> Ok<TOk>(TOk data, string message = null) => new()
+        {
+            IsOk = true,
+            Data = data,
+            Message = message,
+        };
+        
         public static Result Bad(string message) => new()
         {
             IsOk = false,
             Message = message,
+        };
+        
+        public static Result<TBad> Bad<TBad>(string message, TBad data = default) => new()
+        {
+            IsOk = false,
+            Message = message,
+            Data = data,
         };
     }
 }
