@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.ViewModels.Common;
@@ -15,12 +16,12 @@ namespace MMABackend.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProductImageController : ControllerBase
+    public partial class ProductImageController : BaseController
     {
         private readonly UnitOfWork _uow;
         private readonly IWebHostEnvironment _appEnvironment;
 
-        public ProductImageController(UnitOfWork uow, IWebHostEnvironment appEnvironment)
+        public ProductImageController(UnitOfWork uow, IWebHostEnvironment appEnvironment, ILogger<ProductImageController> logger) : base(logger)
         {
             _uow = uow;
             _appEnvironment = appEnvironment;

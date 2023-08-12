@@ -13,6 +13,25 @@ namespace MMABackend.Controllers
             _logger = logger;
         }
 
+        protected ActionResult Execute(Action action)
+        {
+            try
+            {
+                action.Invoke();
+                return Ok(Result.Ok());
+            }
+            catch (ApplicationException e)
+            {
+                _logger.Log(LogLevel.Warning, e.Message);
+                return BadRequest(Result.Bad(e.Message));
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.Message);
+                return BadRequest(Result.Bad(e.Message));
+            }
+        }
+
         protected ActionResult Execute<T>(Func<T> func)
         {
             try

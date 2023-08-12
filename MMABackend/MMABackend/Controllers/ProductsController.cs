@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using MMABackend.Configurations.Users;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
@@ -72,7 +74,7 @@ namespace MMABackend.Controllers
         [HttpPost]
         public ActionResult<Product> AddWithEmail(AddProductWithEmailViewModel model)
         {
-            var user = _uow.GetUserByEmailOrError(model.UserEmail);
+            var user = _uow.GetUserByEmailOrError(model.UserEmail ?? model.UserId);
             Product product = model;
             product.UserId = user.Id;
             _uow.Products.Add(product);

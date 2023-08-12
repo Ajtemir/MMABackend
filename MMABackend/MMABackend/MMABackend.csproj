@@ -43,6 +43,9 @@
       <Compile Update="Controllers\GetCategoryPropertiesAndTheirValues.cs">
         <DependentUpon>CategoriesController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\AddDefaultImageAction.cs">
+        <DependentUpon>ProductImageController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
