@@ -70,7 +70,10 @@ namespace MMABackend
             }
             serviceProvider.DataSeed();
             // app.UseHttpsRedirection();
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+            );
             app.UseRouting();
 
             app.UseAuthentication();
