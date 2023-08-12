@@ -79,7 +79,7 @@ namespace MMABackend.Controllers
             product.UserId = user.Id;
             _uow.Products.Add(product);
             _uow.SaveChanges();
-            return Ok(product.Id);
+            return Ok(Result.Ok((ReadProductViewModel)product));
         }
         
         [HttpPut]
