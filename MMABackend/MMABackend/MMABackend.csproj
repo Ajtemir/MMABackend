@@ -47,6 +47,9 @@
       <Compile Update="Controllers\AddDefaultImageAction.cs">
         <DependentUpon>ProductImageController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetAllProducts.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

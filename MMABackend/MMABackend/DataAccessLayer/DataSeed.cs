@@ -111,28 +111,28 @@ namespace MMABackend.DataAccessLayer
                 new Product
                 {
                     Id = 1,
-                    CategoryId = 1,
+                    CategoryId = (int)CategoriesIds.Автомобиль,
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 1",
                 },
                 new Product
                 {
                     Id = 2,
-                    CategoryId = 1,
+                    CategoryId = (int)CategoriesIds.Автомобиль,
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 2",
                 },
                 new Product
                 {
                     Id = 3,
-                    CategoryId = 1,
+                    CategoryId = (int)CategoriesIds.Автомобиль,
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 3",
                 },
                 new Product
                 {
                     Id = 4,
-                    CategoryId = 1,
+                    CategoryId = (int)CategoriesIds.Автомобиль,
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 4",
                 }

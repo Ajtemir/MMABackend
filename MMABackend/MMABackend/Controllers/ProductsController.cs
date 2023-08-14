@@ -18,10 +18,10 @@ namespace MMABackend.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProductsController : ControllerBase
+    public partial class ProductsController : BaseController
     {
         private readonly UnitOfWork _uow;
-        public ProductsController(UnitOfWork uow)
+        public ProductsController(UnitOfWork uow, ILogger<ProductsController> logger) : base(logger)
         {
             _uow = uow;
         }
@@ -38,20 +38,7 @@ namespace MMABackend.Controllers
             return Ok((GetProductByIdResult)product);
 
         }
-
-        [HttpGet]
-        public ActionResult<List<Product>> Index(string email = null, bool isNew = false)
-        {
-            var entities = _uow.Products
-                .Include(x => x.Category)
-                .Include(x => x.User)
-                .Include(x => x.Photos)
-                .Where(x=>x.User.Email == email || email == null);
-            if(isNew) entities = entities.OrderByDescending(x=>x.CreatedDate);
-            List<ReadProductViewModel> result = entities.Select(x=>(ReadProductViewModel)x).ToList();
-            return Ok(new Response{data = result});
-        }
-
+        
         class Response
         {
             public  List<ReadProductViewModel> data { get; set; }

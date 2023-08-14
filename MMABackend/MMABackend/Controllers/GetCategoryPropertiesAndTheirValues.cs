@@ -20,7 +20,7 @@ namespace MMABackend.Controllers
                     .Include(x => x.PropertyKeys)
                     .ThenInclude(x => x.PropertyValues)
                     .FirstOrError(x => x.Id == categoryId);
-                return Result.Ok((CategoryPropertiesAndTheirValuesResult)propertyKeyAndValuesOfCategory);
+                return (CategoryPropertiesAndTheirValuesResult)propertyKeyAndValuesOfCategory;
             });
         }
     }

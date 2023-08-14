@@ -36,7 +36,7 @@ namespace MMABackend.Controllers
         {
             try
             {
-                return Ok(func.Invoke());
+                return Ok(Result.Ok(func.Invoke()));
             }
             catch (ApplicationException e)
             {
