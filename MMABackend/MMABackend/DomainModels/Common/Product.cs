@@ -11,6 +11,9 @@ namespace MMABackend.DomainModels.Common
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public string Title { get; set; }
+        
         [StringLength(maximumLength: 255)] 
         public string Description { get; set; } = string.Empty;
         public decimal? Price { get; set; } = null;

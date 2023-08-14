@@ -112,6 +112,9 @@ namespace MMABackend.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
@@ -535,7 +538,7 @@ namespace MMABackend.Migrations
             modelBuilder.Entity("MMABackend.DomainModels.Common.PropertyKey", b =>
                 {
                     b.HasOne("MMABackend.DomainModels.Common.Category", "Category")
-                        .WithMany()
+                        .WithMany("PropertyKeys")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -632,6 +635,8 @@ namespace MMABackend.Migrations
             modelBuilder.Entity("MMABackend.DomainModels.Common.Category", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("PropertyKeys");
 
                     b.Navigation("SubCategories");
                 });
