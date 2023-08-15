@@ -12,17 +12,8 @@ namespace MMABackend.Controllers
     {
         
         [HttpGet]
-        public ActionResult GetCategoryPropertiesAndTheirValues(int categoryId)
-        {
-            return Execute(() =>
-            {
-                var propertyKeyAndValuesOfCategory = _uow.Categories
-                    .Include(x => x.PropertyKeys)
-                    .ThenInclude(x => x.PropertyValues)
-                    .FirstOrError(x => x.Id == categoryId);
-                return (CategoryPropertiesAndTheirValuesResult)propertyKeyAndValuesOfCategory;
-            });
-        }
+        public ActionResult GetCategoryPropertiesAndTheirValues(int categoryId) => 
+            Execute(() => (CategoryPropertiesAndTheirValuesResult) _uow.GetCategoryPropertyAndValuesById(categoryId));
     }
 
     public class CategoryPropertiesAndTheirValuesResult

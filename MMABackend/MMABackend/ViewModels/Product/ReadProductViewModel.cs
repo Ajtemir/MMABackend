@@ -14,7 +14,7 @@ namespace MMABackend.ViewModels.Product
         public string SellerEmail { get; set; }
         public List<string> Images { get; set; }
         
-        public static implicit operator ReadProductViewModel(DomainModels.Common.Product entity)
+        public static explicit operator ReadProductViewModel(DomainModels.Common.Product entity)
         {
             return new ReadProductViewModel
             {

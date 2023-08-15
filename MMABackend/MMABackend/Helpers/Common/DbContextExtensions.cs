@@ -27,5 +27,13 @@ namespace MMABackend.Helpers.Common
             if(elem == null) throw new ApplicationException(errorMessage ?? $"Not found entity {nameof(T)}");
             return elem;
         }
+
+        public static Category GetCategoryPropertyAndValuesById(this UnitOfWork uow, int categoryId)
+        {
+            return uow.Categories
+                .Include(x => x.PropertyKeys)
+                .ThenInclude(x => x.PropertyValues)
+                .FirstOrError(x => x.Id == categoryId);
+        }
     }
 }
