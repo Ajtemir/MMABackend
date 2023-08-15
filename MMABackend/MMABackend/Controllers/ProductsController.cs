@@ -25,19 +25,6 @@ namespace MMABackend.Controllers
         {
             _uow = uow;
         }
-
-        [HttpGet]
-        public ActionResult<GetProductByIdResult> GetById([FromQuery]GetByEmailViewModel model)
-        {
-            var user = _uow.GetUserByEmailOrError(model.Email);
-            var query = _uow.Products
-                .Include(x => x.Favorites.Where(f => f.UserId == user.Id)).ThenInclude(x => x.User);
-            var product = _uow.Products
-                .Include(x => x.Favorites.Where(f=>f.UserId==user.Id)).ThenInclude(x => x.User)
-                .FirstOrDefault(x => x.Id == model.ProductId);
-            return Ok((GetProductByIdResult)product);
-
-        }
         
         class Response
         {

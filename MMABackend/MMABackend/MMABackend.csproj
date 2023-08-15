@@ -50,6 +50,9 @@
       <Compile Update="Controllers\GetAllProducts.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetProductById.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
