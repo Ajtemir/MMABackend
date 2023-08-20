@@ -16,6 +16,7 @@ namespace MMABackend.Controllers
             var product = _uow.Products
                 .Include(x=>x.ProductProperties)
                 .ThenInclude(x=>x.PropertyValue)
+                .Include(x=>x.Photos)
                 .FirstOrError(x => x.Id == model.ProductId);
             
             var category = _uow.GetCategoryPropertyAndValuesById(product.CategoryId);
@@ -25,8 +26,8 @@ namespace MMABackend.Controllers
                     .DefaultIfEmpty()
                 select new CategoryProperty
                 {
-                    Id = prProperty?.Id,
-                    Name = prProperty?.PropertyValue.Name,
+                    SelectedId = prProperty?.Id,
+                    SelectedName = prProperty?.PropertyValue.Name,
                     Options = prKey.PropertyValues.Select(x => new CategoryPropertyValueOptions
                     {
                         Id = x.Id,
@@ -38,6 +39,7 @@ namespace MMABackend.Controllers
             {
                 CategoryProperties = options,
                 Product = (ReadProductViewModel)product,
+                CategoryInfo = new CategoryInfo(product.Category.Id, product.Category.Name),
             };
         });
     }
@@ -51,14 +53,17 @@ namespace MMABackend.Controllers
     {
         public ReadProductViewModel Product { get; set; }
         public IEnumerable<CategoryProperty> CategoryProperties { get; set; } = new List<CategoryProperty>();
+        public CategoryInfo CategoryInfo { get; set; }
     }
 
     public class CategoryProperty
     {
-        public int? Id { get; set; }
-        public string Name { get; set; }
+        public int? SelectedId { get; set; }
+        public string SelectedName { get; set; }
         public IEnumerable<CategoryPropertyValueOptions> Options { get; set; } = new List<CategoryPropertyValueOptions>();
     }
+
+    public record CategoryInfo(int Id, string Name);
     
     public class CategoryPropertyValueOptions
     {
