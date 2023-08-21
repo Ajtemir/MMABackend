@@ -28,19 +28,31 @@ namespace MMABackend.Controllers
                 {
                     SelectedId = prProperty?.Id,
                     SelectedName = prProperty?.PropertyValue.Name,
-                    Options = prKey.PropertyValues.Select(x => new CategoryPropertyValueOptions
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                    }).ToList(),
+                    PropertyKey = prKey,
                 };
-                
-            return new ProductEditViewModel
+
+            var res = options.GroupBy(x => x.PropertyKey.Id).Select(group => new
             {
-                CategoryProperties = options,
-                Product = (ReadProductViewModel)product,
-                CategoryInfo = new CategoryInfo(product.Category.Id, product.Category.Name),
-            };
+                SelectedValueIds = group.Select(x => new
+                {
+                    x.SelectedId,
+                    x.SelectedName,
+                }),
+                group.First().PropertyKey.IsMultiple,
+                Options = group.First().PropertyKey.PropertyValues.Select(x => new
+                {
+                    x.Id,
+                    x.Name,
+                }),
+                
+            });
+            return res;
+            // return new ProductEditViewModel
+            // {
+            //     CategoryProperties = options,
+            //     Product = (ReadProductViewModel)product,
+            //     CategoryInfo = new CategoryInfo(product.Category.Id, product.Category.Name),
+            // };
         });
     }
 
@@ -61,6 +73,7 @@ namespace MMABackend.Controllers
         public int? SelectedId { get; set; }
         public string SelectedName { get; set; }
         public IEnumerable<CategoryPropertyValueOptions> Options { get; set; } = new List<CategoryPropertyValueOptions>();
+        public PropertyKey PropertyKey { get; set; }
     }
 
     public record CategoryInfo(int Id, string Name);

@@ -17,6 +17,7 @@ namespace MMABackend.DataAccessLayer
             uow.ProductImageSeeding();
             uow.ProductPropertySeed();
             uow.ProductValueSeed();
+            uow.ProductPropertyValueSeeding();
         }
 
         private static void ProductPropertySeed(this UnitOfWork uow)
@@ -171,6 +172,31 @@ namespace MMABackend.DataAccessLayer
                 }
             );
             uow.SaveChangesWithIdentityInsert<ProductPhoto>();
+        }
+        
+        private static void ProductPropertyValueSeeding(this UnitOfWork uow)
+        {
+            uow.ProductProperties.AddRange(
+                new ProductProperty
+                {
+                    Id = 1,
+                    ProductId = 1,
+                    PropertyValueId = 1,
+                },
+                new ProductProperty
+                {
+                    Id = 2,
+                    ProductId = 1,
+                    PropertyValueId = 3,
+                },
+                new ProductProperty
+                {
+                    Id = 3,
+                    ProductId = 1,
+                    PropertyValueId = 4,
+                }
+                );
+            uow.SaveChangesWithIdentityInsert<ProductProperty>();
         }
     }
 
