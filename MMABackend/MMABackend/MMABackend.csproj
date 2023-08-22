@@ -61,6 +61,15 @@
       <Compile Update="Controllers\GetShops.cs">
         <DependentUpon>ShopsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="DataAccessLayer\MarketSeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DataAccessLayer\ShopSeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DataAccessLayer\CommonMethod.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

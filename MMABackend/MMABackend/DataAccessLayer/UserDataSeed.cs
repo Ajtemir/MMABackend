@@ -13,7 +13,15 @@ namespace MMABackend.DataAccessLayer
     public static class SampleData
     {
         public const string EmailPostfix = "@example.com";
-        public static readonly string[] Logins = new[] { "zero", "first", "second", "third", "fourth", "fifth" };
+        public static readonly string[] Logins = new[] { 
+            UserIds.zero.ToString(),
+            UserIds.first.ToString(),
+            UserIds.second.ToString(),
+            UserIds.third.ToString(),
+            UserIds.fourth.ToString(),
+            UserIds.fifth.ToString(),
+            
+        };
         public static string GetEmailByIndex(int index) => Logins[index] + EmailPostfix;
         public static void InitializeUsersAndRoles(this IServiceProvider serviceProvider)
         {
@@ -83,5 +91,15 @@ namespace MMABackend.DataAccessLayer
             };
         }
 
+    }
+
+    public enum UserIds
+    {
+        zero = 0,
+        first = 1,
+        second = 2,
+        third = 3,
+        fourth = 4,
+        fifth = 5,
     }
 }

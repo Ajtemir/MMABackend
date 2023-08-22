@@ -7,17 +7,20 @@ using MMABackend.Helpers.Common;
 
 namespace MMABackend.DataAccessLayer
 {
-    public static class DataSeeding
+    public static partial class DataSeeding
     {
         public static void CommonSeeding(this IServiceProvider serviceProvider)
         {
             var uow = serviceProvider?.GetService<UnitOfWork>() ?? throw new ArgumentNullException(nameof(serviceProvider));
+            uow.MarketSeeding();
+            uow.ShopSeeding();
             uow.CategorySeed();
             uow.ProductSeeding();
             uow.ProductImageSeeding();
             uow.ProductPropertySeed();
             uow.ProductValueSeed();
             uow.ProductPropertyValueSeeding();
+            
         }
 
         private static void ProductPropertySeed(this UnitOfWork uow)
