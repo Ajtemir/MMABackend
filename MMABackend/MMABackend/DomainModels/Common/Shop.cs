@@ -10,6 +10,5 @@ namespace MMABackend.DomainModels.Common
         public int UserId { get; set; }
         public User User { get; set; }
         public ShopType ShopType { get; set; } = ShopType.Online;
-        public ShopLocationDetail ShopLocationDetail { get; set; }
     }
 }
