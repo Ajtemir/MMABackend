@@ -10,15 +10,26 @@ namespace MMABackend.Controllers
         [HttpGet]
         public ActionResult GetShops([FromQuery] GetShopArgument argument) => Execute(() =>
         {
-            return _uow.ShopLocationDetails.Include(x => x.Market)
+            var shops = _uow.ShopLocationDetails.Include(x => x.Market)
+                .Where(x => x.ShopType == ShopType.Fixed || x.ShopType == ShopType.Free)
                 .Select(x => new
                 {
-                    Latitude = x.ShopType == ShopType.Market ? x.Latitude : x.Market.Latitude,
-                    Longtitude = x.ShopType == ShopType.Market ? x.Longitude : x.Market.Longitude,
+                    x.Market.Latitude,
+                    x.Market.Longitude,
                     x.ShopType,
                     x.Id,
-                    IsInMarket = x.ShopType == ShopType.Market,
-                });
+                }).ToList();
+            
+            var markets = _uow.Markets.Select(x => new
+            {
+                x.Latitude,
+                x.Longitude,
+                ShopType = ShopType.Market,
+                x.Id,
+            }).ToList();
+
+            var all = shops.Union(markets);
+            return all;
         });
     }
 
