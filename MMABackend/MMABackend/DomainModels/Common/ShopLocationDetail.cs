@@ -9,8 +9,6 @@ namespace MMABackend.DomainModels.Common
     [Table("ShopLocationDetails")]
     public class ShopLocationDetail : Shop
     {
-        public int? MarketId { get; set; }
-        public Market Market { get; set; }
         public int Stage { get; set; } = 1;
         [Column(TypeName =  "Decimal(8,6)")]
         public decimal? Latitude { get; set; } = null;
