@@ -15,7 +15,7 @@ namespace MMABackend.DataAccessLayer
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Market> Markets { get; set; }
-        public DbSet<MarketShop> MarketShops { get; set; }
+        public DbSet<ShopLocationDetail> ShopLocationDetails { get; set; }
         public DbSet<UserAvatar> UserAvatars { get; set; }
         public DbSet<CollectivePurchaser> CollectivePurchasers { get; set; }
         public DbSet<CollectiveSoldProduct> CollectiveSoldProducts { get; set; }

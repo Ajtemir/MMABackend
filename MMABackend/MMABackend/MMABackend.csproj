@@ -58,6 +58,9 @@
       <Compile Update="Controllers\ChangeProductById.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetShops.cs">
+        <DependentUpon>ShopsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

@@ -10,10 +10,6 @@ namespace MMABackend.DomainModels.Common
         public int UserId { get; set; }
         public User User { get; set; }
         public ShopType ShopType { get; set; } = ShopType.Online;
-        [Column(TypeName =  "Decimal(8,6)")]
-        public decimal? Latitude { get; set; } = null;
-        [Column(TypeName = "Decimal(9,6)")]
-        public decimal? Longitude { get; set; } = null;
-        public MarketShop MarketShop { get; set; }
+        public ShopLocationDetail ShopLocationDetail { get; set; }
     }
 }
