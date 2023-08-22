@@ -11,7 +11,7 @@ namespace MMABackend.DomainModels.Common
         public int Id { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public bool? IsActual { get; set; }
+        public bool? IsActual { get; set; } = false;
         public decimal CollectivePrice { get; set; }
         public int BuyerMinAmount { get; set; }
         public DateTime StartDate { get; set; }

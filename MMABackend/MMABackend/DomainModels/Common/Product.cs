@@ -28,5 +28,8 @@ namespace MMABackend.DomainModels.Common
         public ICollection<ProductPhoto> Photos { get; set; } = new List<ProductPhoto>();
         public ICollection<ProductProperty> ProductProperties { get; set; } = new List<ProductProperty>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
+        public ICollection<CollectiveSoldProduct> CollectiveSoldProduct { get; set; } =
+            new List<CollectiveSoldProduct>();
     }
 }

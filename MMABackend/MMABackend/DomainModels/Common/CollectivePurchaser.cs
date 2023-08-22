@@ -16,5 +16,6 @@ namespace MMABackend.DomainModels.Common
         public User Buyer { get; set; }
         public int CollectiveSoldProductId { get; set; }
         public CollectiveSoldProduct CollectiveSoldProduct { get; set; }
+        public DateTime AddedDate { get; set; } = DateTime.Now;
     }
 }
