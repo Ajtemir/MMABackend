@@ -14,6 +14,7 @@ namespace MMABackend.DataAccessLayer
             var uow = serviceProvider?.GetService<UnitOfWork>() ?? throw new ArgumentNullException(nameof(serviceProvider));
             uow.MarketSeeding();
             uow.ShopSeeding();
+            uow.ShopLocationDetailSeeding();
             uow.CategorySeed();
             uow.ProductSeeding();
             uow.ProductImageSeeding();

@@ -23,12 +23,12 @@ namespace MMABackend.Controllers
             catch (ApplicationException e)
             {
                 _logger.Log(LogLevel.Warning, e.Message);
-                return BadRequest(Result.Bad(e.Message));
+                return BadRequest(Result.Bad(e.Message, e.StackTrace));
             }
             catch (Exception e)
             {
                 _logger.Log(LogLevel.Error, e.Message);
-                return BadRequest(Result.Bad(e.Message));
+                return BadRequest(Result.Bad(e.Message, e.StackTrace, true));
             }
         }
 
@@ -41,12 +41,12 @@ namespace MMABackend.Controllers
             catch (ApplicationException e)
             {
                 _logger.Log(LogLevel.Warning, e.Message);
-                return BadRequest(Result.Bad(e.Message));
+                return BadRequest(Result.Bad(e.Message, e.StackTrace));
             }
             catch (Exception e)
             {
                 _logger.Log(LogLevel.Error, e.Message);
-                return BadRequest(Result.Bad(e.Message));
+                return BadRequest(Result.Bad(e.Message, e.StackTrace, true));
             }
         }
     }
@@ -60,6 +60,8 @@ namespace MMABackend.Controllers
     {
         public bool IsOk { get; set; } = false;
         public string Message { get; set; } = null;
+        public string StackTrace { get; set; } = null;
+        public bool IsError { get; set; } = false;
         public static Result Ok() => new()
         {
             IsOk = true,
@@ -72,17 +74,19 @@ namespace MMABackend.Controllers
             Message = message,
         };
         
-        public static Result Bad(string message) => new()
+        public static Result Bad(string message, string stackTrace, bool isError = false) => new()
         {
             IsOk = false,
             Message = message,
+            IsError = isError,
         };
         
-        public static Result<TBad> Bad<TBad>(string message, TBad data = default) => new()
+        public static Result<TBad> Bad<TBad>(string message, string stackTrace, bool isError = false, TBad data = default) => new()
         {
             IsOk = false,
             Message = message,
             Data = data,
+            IsError = isError,
         };
     }
 }

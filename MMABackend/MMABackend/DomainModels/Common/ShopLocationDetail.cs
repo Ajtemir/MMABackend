@@ -6,9 +6,15 @@ using NetTopologySuite.Geometries;
 
 namespace MMABackend.DomainModels.Common
 {
-    [Table("ShopLocationDetails")]
-    public class ShopLocationDetail : Shop
+    public class ShopLocationDetail
     {
+        [Key]
+        [ForeignKey(nameof(ShopId))]
+        public int ShopId { get; set; }
+
+        public Shop Shop { get; set; }
+        public int? MarketId { get; set; }
+        public Market Market { get; set; }
         public int Stage { get; set; } = 1;
         [Column(TypeName =  "Decimal(8,6)")]
         public decimal? Latitude { get; set; } = null;

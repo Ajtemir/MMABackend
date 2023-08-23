@@ -14,7 +14,6 @@ namespace MMABackend.DataAccessLayer
                 new Shop
                 {
                     Id = ShopIds.first.ToInt(),
-                    MarketId = MarketIds.Usta.ToInt(),
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.first.ToInt())),
                     ShopType = ShopType.Market,
                 },
@@ -36,7 +35,7 @@ namespace MMABackend.DataAccessLayer
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
                     ShopType = ShopType.Online,
                 }
-                );
+            );
         }
         
         
