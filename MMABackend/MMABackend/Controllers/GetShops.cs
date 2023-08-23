@@ -8,7 +8,7 @@ namespace MMABackend.Controllers
     public partial class ShopsController
     {
         [HttpGet]
-        public ActionResult GetShops([FromQuery] GetShopArgument argument) => Execute(() =>
+        public ActionResult GetShopsAndMarkets([FromQuery] GetShopArgument argument) => Execute(() =>
         {
             var shops = _uow.Shops.Include(x => x.ShopLocationDetail)
                 .Where(x => x.ShopType == ShopType.Fixed || x.ShopType == ShopType.Free)
