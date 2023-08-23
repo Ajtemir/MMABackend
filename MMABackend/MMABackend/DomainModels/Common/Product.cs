@@ -22,6 +22,10 @@ namespace MMABackend.DomainModels.Common
         [ForeignKey(nameof(UserId))]
         [JsonIgnore]
         public User User { get; set; }
+
+        public int? ShopId { get; set; }
+        [ForeignKey(nameof(ShopId))]
+        public Shop Shop { get; set; }
         public int CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }

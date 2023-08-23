@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MMABackend.Enums.Common;
@@ -13,5 +14,6 @@ namespace MMABackend.DomainModels.Common
         public User User { get; set; }
         public ShopType ShopType { get; set; } = ShopType.Online;
         public ShopLocationDetail ShopLocationDetail { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

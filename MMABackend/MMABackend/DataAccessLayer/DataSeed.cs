@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MMABackend.DomainModels.Common;
 using MMABackend.Helpers.Common;
+using MMABackend.Utilities.Extensions;
 
 namespace MMABackend.DataAccessLayer
 {
@@ -118,12 +119,14 @@ namespace MMABackend.DataAccessLayer
                     Id = 1,
                     CategoryId = (int)CategoriesIds.Автомобиль,
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
+                    ShopId = ShopIds.first.ToInt(),
                     Description = "Машина 1",
                 },
                 new Product
                 {
                     Id = 2,
                     CategoryId = (int)CategoriesIds.Автомобиль,
+                    ShopId = ShopIds.first.ToInt(),
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 2",
                 },
@@ -131,6 +134,7 @@ namespace MMABackend.DataAccessLayer
                 {
                     Id = 3,
                     CategoryId = (int)CategoriesIds.Автомобиль,
+                    ShopId = ShopIds.first.ToInt(),
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 3",
                 },
@@ -138,6 +142,7 @@ namespace MMABackend.DataAccessLayer
                 {
                     Id = 4,
                     CategoryId = (int)CategoriesIds.Автомобиль,
+                    ShopId = ShopIds.first.ToInt(),
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     Description = "Машина 4",
                 }
