@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MMABackend.DataAccessLayer;
 
 namespace MMABackend.Controllers
 {
