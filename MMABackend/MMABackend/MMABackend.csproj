@@ -91,6 +91,9 @@
       <Compile Update="DataAccessLayer\FavoritesSeeding.cs">
         <DependentUpon>DataSeed.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\AddProductWithEmail.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

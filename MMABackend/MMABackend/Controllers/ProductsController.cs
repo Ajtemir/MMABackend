@@ -44,18 +44,7 @@ namespace MMABackend.Controllers
             _uow.SaveChanges();
             return Ok((ReadProductViewModel)product);
         }
-        
-        [HttpPost]
-        public ActionResult<Product> AddWithEmail(AddProductWithEmailViewModel model)
-        {
-            var user = _uow.GetUserByEmailOrError(model.UserEmail ?? model.UserId);
-            Product product = model;
-            product.UserId = user.Id;
-            _uow.Products.Add(product);
-            _uow.SaveChanges();
-            return Ok(Result.Ok((ReadProductViewModel)product));
-        }
-        
+
         [HttpPut]
         public ActionResult<List<Product>> Update(Product entity)
         {
