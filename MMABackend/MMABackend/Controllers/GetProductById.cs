@@ -16,6 +16,7 @@ namespace MMABackend.Controllers
             var query = _uow.Products
                 .Include(x => x.Favorites.Where(f => f.UserId == user.Id)).ThenInclude(x => x.User);
             var product = _uow.Products
+                .Include(x=>x.Photos)
                 .Include(x => x.Favorites.Where(f=>f.UserId==user.Id)).ThenInclude(x => x.User)
                 .FirstOrDefault(x => x.Id == model.ProductId);
             return (GetProductByIdResult)product;

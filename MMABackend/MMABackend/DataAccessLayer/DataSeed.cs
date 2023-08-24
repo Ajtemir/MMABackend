@@ -94,7 +94,7 @@ namespace MMABackend.DataAccessLayer
                     Id = 2,
                     CategoryId = (int)CategoriesIds.Автомобиль,
                     ShopId = ShopIds.first.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(2)),
+                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.second.ToInt())),
                     Description = "Машина 2",
                 },
                 new Product
