@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.Helpers.Common;
@@ -13,23 +14,13 @@ namespace MMABackend.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class FavoritesController : ControllerBase
+    public partial class FavoritesController : BaseController
     {
         private readonly UnitOfWork _uow;
 
-        public FavoritesController(UnitOfWork uow)
+        public FavoritesController(UnitOfWork uow, ILogger<FavoritesController> logger) : base(logger)
         {
             _uow = uow;
-        }
-
-        [HttpGet]
-        public ActionResult<List<ReadProductViewModel>> GetFavorites([FromQuery]GetAllFavoritesViewModel model)
-        {
-            var userId  = _uow.GetUserIdByEmailOrError(model.Email);
-            var products = _uow.Favorites.Include(x => x.Product)
-                .Include(x=>x.User)
-                .Where(x => x.UserId == userId).Select(x => x.Product).ToList();
-            return Ok(products);
         }
 
         [HttpGet]
@@ -65,8 +56,5 @@ namespace MMABackend.Controllers
         public int ProductId { get; set; }
     }
 
-    public class GetAllFavoritesViewModel
-    {
-        public string Email { get; set; }
-    }
+    
 }

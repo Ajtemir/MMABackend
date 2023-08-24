@@ -22,6 +22,7 @@ namespace MMABackend.DataAccessLayer
             uow.ProductPropertySeed();
             uow.ProductValueSeed();
             uow.ProductPropertyValueSeeding();
+            uow.FavoritesSeeding();
             
         }
 
@@ -93,7 +94,7 @@ namespace MMABackend.DataAccessLayer
                     Id = 2,
                     CategoryId = (int)CategoriesIds.Автомобиль,
                     ShopId = ShopIds.first.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
+                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(2)),
                     Description = "Машина 2",
                 },
                 new Product

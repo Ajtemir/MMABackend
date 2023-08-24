@@ -85,6 +85,12 @@
       <Compile Update="DataAccessLayer\CategorySeeding.cs">
         <DependentUpon>DataSeed.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetFavorites.cs">
+        <DependentUpon>FavoritesController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DataAccessLayer\FavoritesSeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
