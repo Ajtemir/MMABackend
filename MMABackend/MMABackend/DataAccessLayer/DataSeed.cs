@@ -10,7 +10,6 @@ namespace MMABackend.DataAccessLayer
 {
     public static partial class DataSeeding
     {
-    
         public static void CommonSeeding(this IServiceProvider serviceProvider)
         {
             var uow = serviceProvider?.GetService<UnitOfWork>() ?? throw new ArgumentNullException(nameof(serviceProvider));
