@@ -79,6 +79,12 @@
       <Compile Update="Controllers\GetShopsByMarketId.cs">
         <DependentUpon>MarketController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\Index.cs">
+        <DependentUpon>CategoriesController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DataAccessLayer\CategorySeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

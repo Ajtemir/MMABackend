@@ -30,13 +30,6 @@ namespace MMABackend.Controllers
             _appEnvironment = appEnvironment;
         }
 
-        [HttpGet]
-        public ActionResult<List<ReadCategoryViewModel>> Index()
-        {
-            var categories = _uow.Categories.Select(x=>(ReadCategoryViewModel)x).ToList();
-            return Ok(categories);
-        }
-
         [HttpPost]
         public async Task<ActionResult<ReadCategoryViewModel>> Add(AddCategoryViewModel model)
         {
