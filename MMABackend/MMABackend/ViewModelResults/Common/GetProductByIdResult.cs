@@ -13,7 +13,7 @@ namespace MMABackend.ViewModelResults.Common
             {
                 Id = entity.Id,
                 UserId = entity.UserId,
-                SellerEmail = entity.Favorites.FirstOrDefault()?.User.Email,
+                SellerEmail = entity.User?.Email,
                 Description = entity.Description,
                 Price = entity.Price,
                 CategoryId = entity.CategoryId,

@@ -14,6 +14,7 @@ namespace MMABackend.Controllers
             {
                 var userId = _uow.GetUserIdByEmailOrError(model.Email);
                 var products = _uow.Favorites.Include(x => x.Product)
+                    .ThenInclude(x=>x.Photos)
                     .Include(x => x.User)
                     .Where(x => x.UserId == userId).Select(x => (ReadProductViewModel)x.Product).ToList();
                 return products;
