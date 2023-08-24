@@ -26,12 +26,6 @@ namespace MMABackend.Controllers
             _uow = uow;
         }
         
-        class Response
-        {
-            public  List<ReadProductViewModel> data { get; set; }
-        }
-        
-        
         [HttpPost]
         [Authorize(AuthenticationSchemes = AccessTokenConfig.SchemeName)]
         public ActionResult<Product> Add(AddProductViewModel model)

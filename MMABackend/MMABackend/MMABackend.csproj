@@ -94,6 +94,9 @@
       <Compile Update="Controllers\AddProductWithEmail.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetProductsByCategoryId.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
