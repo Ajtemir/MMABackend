@@ -19,7 +19,7 @@ namespace MMABackend.DataAccessLayer
                 new Market
                 {
                     Id = MarketIds.BishkekPark.ToInt(),
-                    Latitude = 142.874706859642295M,
+                    Latitude = 42.874706859642295M,
                     Longitude = 74.5900042060683M,
                     Name = "Бишкек парк",
                 }

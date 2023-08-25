@@ -19,6 +19,7 @@ namespace MMABackend.Controllers
                     x.ShopType,
                     x.Id,
                     IsMarket = false,
+                    x.User.Email,
                 }).ToList();
             
             var markets = _uow.Markets.Select(x => new
@@ -28,6 +29,7 @@ namespace MMABackend.Controllers
                 ShopType = ShopType.Market,
                 x.Id,
                 IsMarket = true,
+                Email = string.Empty,
             }).ToList();
 
             var all = shops.Union(markets);
