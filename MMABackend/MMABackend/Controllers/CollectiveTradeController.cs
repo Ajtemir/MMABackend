@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MMABackend.DataAccessLayer;
 
 namespace MMABackend.Controllers
 {
+    [ApiController]
+    [Route("[controller]/[action]")]
     public partial class CollectiveTradeController : BaseController
     {
         private readonly UnitOfWork _uow;

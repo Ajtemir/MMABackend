@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MMABackend.DataAccessLayer;
@@ -37,7 +38,10 @@ namespace MMABackend.Controllers
         {
             try
             {
-                return Ok(Result.Ok(func.Invoke()));
+                return Ok(Result.Ok(
+                    typeof(T) == typeof(Task)
+                        ? default
+                        : func.Invoke()));
             }
             catch (ApplicationException e)
             {
@@ -80,6 +84,7 @@ namespace MMABackend.Controllers
             IsOk = false,
             Message = message,
             IsError = isError,
+            StackTrace = stackTrace,
         };
         
         public static Result<TBad> Bad<TBad>(string message, string stackTrace, bool isError = false, TBad data = default) => new()
@@ -88,6 +93,7 @@ namespace MMABackend.Controllers
             Message = message,
             Data = data,
             IsError = isError,
+            StackTrace = stackTrace,
         };
     }
 }
