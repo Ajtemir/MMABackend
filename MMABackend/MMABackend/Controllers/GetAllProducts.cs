@@ -16,6 +16,7 @@ namespace MMABackend.Controllers
                 .Include(x => x.Category)
                 .Include(x => x.User)
                 .Include(x => x.Photos)
+                .Include(x=>x.CollectiveSoldProducts.Where(c=>c.IsActual.Value))
                 .Where(x => x.User.Email == email || email == null);
             if (isNew) entities = entities.OrderByDescending(x => x.CreatedDate);
             List<ReadProductViewModel> result = entities.Select(x => (ReadProductViewModel)x).ToList();

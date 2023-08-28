@@ -97,6 +97,27 @@
       <Compile Update="Controllers\GetProductsByCategoryId.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="DomainModels\Common\AdditionalInfo.cs">
+        <DependentUpon>CollectiveSoldProduct.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\MakeProductCollective.cs">
+        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UnmakeProductCollective.cs">
+        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\AddCollectiveProduct.cs">
+        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\RemoveProduct.cs">
+        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\SubmitDeal.cs">
+        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DomainModels\Common\CollectiveProductStatus.cs">
+        <DependentUpon>CollectiveSoldProduct.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

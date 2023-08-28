@@ -13,12 +13,11 @@ namespace MMABackend.Controllers
         public ActionResult<GetProductByIdResult> GetById([FromQuery] GetByEmailViewModel model) => Execute(() =>
         {
             var user = _uow.GetUserByEmailOrError(model.Email);
-            var query = _uow.Products
-                .Include(x => x.Favorites.Where(f => f.UserId == user.Id)).ThenInclude(x => x.User);
             var product = _uow.Products
                 .Include(x=>x.User)
                 .Include(x=>x.Photos)
-                .Include(x => x.Favorites.Where(f=>f.UserId==user.Id)).ThenInclude(x => x.User)
+                .Include(x=> x.CollectiveSoldProducts.Where(c => c.IsActual.Value))
+                .Include(x => x.Favorites.Where(f=> f.UserId == user.Id)).ThenInclude(x => x.User)
                 .FirstOrDefault(x => x.Id == model.ProductId);
             return (GetProductByIdResult)product;
         });
