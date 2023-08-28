@@ -37,6 +37,7 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Remove="Managers\Common\**" />
+        <None Remove="LocalDatabase.db" />
     </ItemGroup>
 
     <ItemGroup>

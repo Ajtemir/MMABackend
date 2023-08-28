@@ -22,7 +22,13 @@ namespace MMABackend.ViewModelResults.Common
                 FavoriteCount = entity.Favorites.Count,
                 CollectiveInfo = entity.CollectiveSoldProduct is null 
                     ? null
-                    : new CollectiveInfo(entity.CollectiveSoldProduct.CurrentPurchasersCount, entity.CollectiveSoldProduct.CollectivePrice, entity.CollectiveSoldProduct.BuyerMinAmount)
+                    : new CollectiveInfo(
+                        entity.CollectiveSoldProduct.CurrentPurchasersCount,
+                        entity.CollectiveSoldProduct.CollectivePrice,
+                        entity.CollectiveSoldProduct.BuyerMinAmount,
+                        entity.CollectiveSoldProduct.StartDate,
+                        entity.CollectiveSoldProduct.EndDate
+                    )
             };
         }
     }
