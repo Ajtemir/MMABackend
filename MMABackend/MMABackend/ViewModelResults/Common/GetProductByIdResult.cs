@@ -20,6 +20,9 @@ namespace MMABackend.ViewModelResults.Common
                 Images = entity.Photos.Select(x=>x.Path).ToList(),
                 IsFavorite = entity.Favorites.FirstOrDefault() is not null,
                 FavoriteCount = entity.Favorites.Count,
+                CollectiveInfo = entity.CollectiveSoldProduct is null 
+                    ? null
+                    : new CollectiveInfo(entity.CollectiveSoldProduct.CurrentPurchasersCount, entity.CollectiveSoldProduct.CollectivePrice, entity.CollectiveSoldProduct.BuyerMinAmount)
             };
         }
     }

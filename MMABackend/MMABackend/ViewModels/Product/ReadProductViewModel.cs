@@ -31,8 +31,9 @@ namespace MMABackend.ViewModels.Product
                 CollectiveInfo = entity.CollectiveSoldProduct == null 
                     ? null
                     : new CollectiveInfo(
-                        buyerCount: entity.CollectiveSoldProduct.CurrentPurchasersCount,
-                        discountedPrice: entity.CollectiveSoldProduct.CollectivePrice    
+                        currentBuyerCount: entity.CollectiveSoldProduct.CurrentPurchasersCount,
+                        discountedPrice: entity.CollectiveSoldProduct.CollectivePrice,
+                        minBuyerCount: entity.CollectiveSoldProduct.BuyerMinAmount
                     ),
             };
         }
@@ -40,13 +41,15 @@ namespace MMABackend.ViewModels.Product
 
     public class CollectiveInfo
     {
-        public CollectiveInfo(int buyerCount, decimal discountedPrice)
+        public CollectiveInfo(int currentBuyerCount, decimal discountedPrice, int minBuyerCount)
         {
-            BuyerCount = buyerCount;
+            CurrentBuyerCount = currentBuyerCount;
             DiscountedPrice = discountedPrice;
+            MinBuyerCount = minBuyerCount;
         }
 
-        public int BuyerCount { get; set; }
+        public int MinBuyerCount { get; set; }
+        public int CurrentBuyerCount { get; set; }
         public decimal DiscountedPrice { get; set; }
                 
     }
