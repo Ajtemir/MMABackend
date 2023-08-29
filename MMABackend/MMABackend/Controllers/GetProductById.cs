@@ -18,11 +18,12 @@ namespace MMABackend.Controllers
             var product = _uow.Products
                 .Include(x=>x.User)
                 .Include(x=>x.Photos)
-                .Include(x=> x.CollectiveSoldProducts.Where(c => c.IsActual.Value))
-                .ThenInclude(x=>x.CollectivePurchasers)
+                .Include(x=> x.CollectiveSoldProducts.Where(p=>p.IsActual.Value))
+                .ThenInclude(x=> x.CollectivePurchasers)
                 .Include(x => x.Favorites.Where(f=> f.UserId == user.Id)).ThenInclude(x => x.User)
                 .FirstOrError(x => x.Id == model.ProductId);
-            var isVoted = product.CollectiveSoldProduct.CollectivePurchasers?.Select(x => x.BuyerId).Contains(user.Id);
+
+            var isVoted = product.CollectiveSoldProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
             return GetByIdResult.Instance(product, isVoted);
         });
     }
@@ -44,22 +45,19 @@ namespace MMABackend.Controllers
         public string SellerEmail { get; set; }
         public List<string> Images { get; set; }
         public CollectiveInfo CollectiveInfo { get; set; }
-        public bool? IsVoted { get; set; } 
-        
+        public bool? IsSetCollective { get; set; } 
         public int FavoriteCount { get; set; }
-
         public bool IsFavorite { get; set; }
-
 
         public static GetByIdResult Instance(Product product, bool? isVoted)
         {
             var casted = (GetByIdResult)product;
-            casted.IsVoted = isVoted;
+            casted.IsSetCollective = isVoted;
             return casted;
         }
 
 
-        public static explicit operator GetByIdResult(DomainModels.Common.Product entity)
+        public static explicit operator GetByIdResult(Product entity)
         {
             return new GetByIdResult
             {

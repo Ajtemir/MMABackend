@@ -14,9 +14,11 @@ namespace MMABackend.Controllers
             var buyerId = _uow.GetUserByEmailOrError(argument.BuyerEmail).Id;
             var product = _uow.CollectiveSoldProducts
                 .FirstOrError(x => x.ProductId == argument.ProductId && x.IsActual.Value);
+            _uow.CollectivePurchasers.ErrorIfExists(x =>
+                x.CollectiveSoldProductId == product.Id && x.BuyerId == buyerId, "Уже есть оказся");
             _uow.CollectivePurchasers.Add(new CollectivePurchaser
             {
-                CollectiveSoldProductId = argument.ProductId,
+                CollectiveSoldProductId = product.Id,
                 BuyerId = buyerId,
             });
             _uow.SaveChanges();

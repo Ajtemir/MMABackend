@@ -119,6 +119,9 @@
       <Compile Update="DomainModels\Common\CollectiveProductStatus.cs">
         <DependentUpon>CollectiveSoldProduct.cs</DependentUpon>
       </Compile>
+      <Compile Update="DataAccessLayer\MakeCollectiveSeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
