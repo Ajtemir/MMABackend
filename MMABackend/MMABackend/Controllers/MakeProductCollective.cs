@@ -11,16 +11,15 @@ namespace MMABackend.Controllers
         [HttpPost]
         public ActionResult MakeProductCollective([FromBody]MakeProductCollectiveArgument argument) => Execute( () =>
         {
-            var userId = _uow.GetUserIdByEmailOrError(argument.SellerEmail);
+            var user = _uow.GetUserByEmailOrError(argument.SellerEmail);
             var product = _uow.Products.FirstOrError(x=>x.Id == argument.ProductId, 
                 $"Не найден продукт по указанному идентификатору: {argument.ProductId}");
             
-            if (product.UserId != userId)
+            if (product.IsSeller(user))
                 throw new ApplicationException("Вы не являетесь продавцом указанного товара");
-            
-            if (_uow.CollectiveSoldProducts.FirstOrDefault(x => 
-                    x.ProductId == argument.ProductId && x.IsActual.Value) != null)
-                throw new ApplicationException("У товара не может быть две коллективной сделки");
+
+            _uow.CollectiveSoldProducts.ErrorIfExists(x => x.ProductId == argument.ProductId && x.IsActual.Value,
+                "У товара не может быть две коллективной сделки");
             
             _uow.CollectiveSoldProducts.Add(new CollectiveSoldProduct
             {

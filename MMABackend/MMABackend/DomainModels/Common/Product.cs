@@ -38,5 +38,6 @@ namespace MMABackend.DomainModels.Common
             new List<CollectiveSoldProduct>();
         [NotMapped]
         public CollectiveSoldProduct CollectiveSoldProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
+        public bool IsSeller(User seller) => this.User.Id == seller.Id;
     }
 }

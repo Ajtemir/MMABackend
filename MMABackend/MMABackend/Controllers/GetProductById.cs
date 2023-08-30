@@ -22,9 +22,15 @@ namespace MMABackend.Controllers
                 .ThenInclude(x=> x.CollectivePurchasers)
                 .Include(x => x.Favorites.Where(f=> f.UserId == user.Id)).ThenInclude(x => x.User)
                 .FirstOrError(x => x.Id == model.ProductId);
+            
+            var sellerCannotVoteOwnProduct = (bool?)null;
+            var isSeller = product.IsSeller(user);
+            
+            var isVoted = isSeller
+                ? sellerCannotVoteOwnProduct
+                : product.CollectiveSoldProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
 
-            var isVoted = product.CollectiveSoldProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
-            return GetByIdResult.Instance(product, isVoted);
+            return GetByIdResult.Instance(product, isVoted, isSeller);
         });
     }
     
@@ -48,14 +54,16 @@ namespace MMABackend.Controllers
         public bool? IsSetCollective { get; set; } 
         public int FavoriteCount { get; set; }
         public bool IsFavorite { get; set; }
+        public bool IsSeller { get; set; } = false;
 
-        public static GetByIdResult Instance(Product product, bool? isVoted)
+
+        public static GetByIdResult Instance(Product product, bool? isVoted = null, bool isSeller = false)
         {
             var casted = (GetByIdResult)product;
             casted.IsSetCollective = isVoted;
+            casted.IsSeller = isSeller;
             return casted;
         }
-
 
         public static explicit operator GetByIdResult(Product entity)
         {
