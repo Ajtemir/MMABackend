@@ -23,11 +23,11 @@ namespace MMABackend.Controllers
                 .Include(x => x.Favorites.Where(f=> f.UserId == user.Id)).ThenInclude(x => x.User)
                 .FirstOrError(x => x.Id == model.ProductId);
             
-            var sellerCannotVoteOwnProduct = (bool?)null;
+            var sellerCannotMakeCollectiveOwnProduct = (bool?)null;
             var isSeller = product.IsSeller(user);
             
             var isVoted = isSeller
-                ? sellerCannotVoteOwnProduct
+                ? sellerCannotMakeCollectiveOwnProduct
                 : product.CollectiveSoldProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
 
             return GetByIdResult.Instance(product, isVoted, isSeller);
