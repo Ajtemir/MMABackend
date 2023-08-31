@@ -15,7 +15,7 @@ namespace MMABackend.Controllers
             var product = _uow.Products.FirstOrError(x=>x.Id == argument.ProductId, 
                 $"Не найден продукт по указанному идентификатору: {argument.ProductId}");
             
-            if (product.IsSeller(user))
+            if (product.IsNotSeller(user))
                 throw new ApplicationException("Вы не являетесь продавцом указанного товара");
 
             _uow.CollectiveSoldProducts.ErrorIfExists(x => x.ProductId == argument.ProductId && x.IsActual.Value,

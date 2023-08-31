@@ -9,7 +9,7 @@ namespace MMABackend.Controllers
         [HttpDelete]
         public ActionResult UnmakeProductCollective([FromBody] UnmakeProductCollectiveArgument argument) => Execute(() =>
             {
-                var product = _uow.CollectiveSoldProducts.FirstOrError(x=>x.ProductId == argument.ProductId);
+                var product = _uow.CollectiveSoldProducts.FirstOrError(x=>x.ProductId == argument.ProductId && x.IsActual.Value);
                 product.Status = CollectiveProductStatus.Canceled;
                 product.IsActual = null;
                 _uow.SaveChanges();

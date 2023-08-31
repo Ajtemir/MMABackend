@@ -16,6 +16,17 @@ namespace MMABackend.DataAccessLayer
                 Status = CollectiveProductStatus.Actual,
                 CollectivePrice = 30M,
                 BuyerMinAmount = 5,
+            },
+            new CollectiveSoldProduct
+            {
+                Id = 2,
+                ProductId = 1,
+                IsActual = true,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(2),
+                Status = CollectiveProductStatus.Actual,
+                CollectivePrice = 25M,
+                BuyerMinAmount = 2,
             }
         );
     }
