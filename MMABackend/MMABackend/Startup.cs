@@ -17,7 +17,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MMABackend.Configurations.Users;
-using MMABackend.CustomMiddlewares;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.Managers.Users;
