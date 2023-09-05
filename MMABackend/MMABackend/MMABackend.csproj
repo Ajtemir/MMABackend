@@ -124,6 +124,9 @@
       <Compile Update="Controllers\GetProductByIdAsSeller.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="DataAccessLayer\MarketShopPointsSeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

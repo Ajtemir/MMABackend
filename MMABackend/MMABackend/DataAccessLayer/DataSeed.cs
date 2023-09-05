@@ -24,6 +24,7 @@ namespace MMABackend.DataAccessLayer
             uow.ProductPropertyValueSeeding();
             uow.FavoritesSeeding();
             uow.MakeCollectiveSeeding();
+            uow.MarketShopPointsSeeding();
         }
 
         private static void ProductPropertySeed(this UnitOfWork uow)
