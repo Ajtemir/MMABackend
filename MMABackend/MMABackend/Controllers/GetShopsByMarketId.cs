@@ -6,12 +6,23 @@ namespace MMABackend.Controllers
 {
     public partial class MarketController
     {
-        [HttpGet("{marketId:int}")]
-        public ActionResult GetShopsByMarketId(int marketId) => Execute(() =>
+        [HttpGet]
+        public ActionResult GetShopsByMarketId([FromQuery]GetShopsByMarketIdArgument argument) => Execute(() =>
         {
             return _uow.Shops.Include(x => x.ShopLocationDetail)
-                .Where(x => x.ShopLocationDetail.MarketId == marketId)
+                .ThenInclude(x=>x.ShopPoints)
+                .Where(x => x.ShopLocationDetail.MarketId == argument.MarketId)
+                .Select(x =>new 
+                {
+                    x.Id,
+                    Points = x.ShopLocationDetail.ShopPoints,
+                })
                 .ToList();
         });
+    }
+
+    public class GetShopsByMarketIdArgument
+    {
+        public int MarketId { get; set; }
     }
 }

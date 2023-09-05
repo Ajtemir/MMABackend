@@ -23,6 +23,11 @@ namespace MMABackend.DataAccessLayer
                     ShopId = ShopIds.third.ToInt(),
                     Latitude = 42.829126104728196M,
                     Longitude = 74.58496639213371M,
+                },
+                new ShopLocationDetail
+                {
+                    ShopId = InMarketShopIds.fifth.ToInt(),
+                    MarketId = MarketIds.Usta.ToInt(),
                 }
             );
         }
