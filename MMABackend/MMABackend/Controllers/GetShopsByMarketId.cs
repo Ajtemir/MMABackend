@@ -15,7 +15,11 @@ namespace MMABackend.Controllers
                 .Select(x =>new 
                 {
                     x.Id,
-                    Points = x.ShopLocationDetail.ShopPoints,
+                    Points = x.ShopLocationDetail.ShopPoints.Select(e => new
+                    {
+                        e.Latitude,
+                        e.Longitude,
+                    }),
                 })
                 .ToList();
         });
