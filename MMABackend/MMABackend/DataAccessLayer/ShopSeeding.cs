@@ -39,34 +39,11 @@ namespace MMABackend.DataAccessLayer
                 // InMarket
                 new Shop
                 {
-                    Id = InMarketShopIds.fifth.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
-                    ShopType = ShopType.Market,
-                },
-                new Shop
-                {
-                    Id = InMarketShopIds.sixth.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
-                    ShopType = ShopType.Market,
-                },
-                new Shop
-                {
-                    Id = InMarketShopIds.seventh.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
-                    ShopType = ShopType.Market,
-                },
-                new Shop
-                {
-                    Id = InMarketShopIds.eighth.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
-                    ShopType = ShopType.Market,
-                },
-                new Shop
-                {
-                    Id = InMarketShopIds.ninth.ToInt(),
+                    Id = ShopIds.fifth.ToInt(),
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
                     ShopType = ShopType.Market,
                 }
+              
             );
         }
     }
@@ -77,14 +54,7 @@ namespace MMABackend.DataAccessLayer
         second = 2,
         third = 3,
         fourth = 4,
-    }
-
-    enum InMarketShopIds
-    {
         fifth = 5,
-        sixth = 6,
-        seventh = 7,
-        eighth = 8,
-        ninth = 9,
+
     }
 }

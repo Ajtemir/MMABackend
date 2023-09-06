@@ -26,7 +26,7 @@ namespace MMABackend.DataAccessLayer
                 },
                 new ShopLocationDetail
                 {
-                    ShopId = InMarketShopIds.fifth.ToInt(),
+                    ShopId = ShopIds.fifth.ToInt(),
                     MarketId = MarketIds.Usta.ToInt(),
                 }
             );

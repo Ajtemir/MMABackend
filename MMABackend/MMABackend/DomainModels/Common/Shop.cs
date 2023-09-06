@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using MMABackend.Enums.Common;
 using NetTopologySuite.Geometries;
 
 namespace MMABackend.DomainModels.Common
 {
+    [Index(nameof(UserId), IsUnique = true)]
     public class Shop
     {
         [Key]
