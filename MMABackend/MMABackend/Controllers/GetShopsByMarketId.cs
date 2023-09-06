@@ -9,7 +9,9 @@ namespace MMABackend.Controllers
         [HttpGet]
         public ActionResult GetShopsByMarketId([FromQuery]GetShopsByMarketIdArgument argument) => Execute(() =>
         {
-            return _uow.Shops.Include(x => x.ShopLocationDetail)
+            return _uow.Shops
+                .Include(x=>x.User)
+                .Include(x => x.ShopLocationDetail)
                 .ThenInclude(x=>x.ShopPoints)
                 .Where(x => x.ShopLocationDetail.MarketId == argument.MarketId)
                 .Select(x =>new 
@@ -20,6 +22,7 @@ namespace MMABackend.Controllers
                         e.Latitude,
                         e.Longitude,
                     }),
+                    SellerEmail = x.User.Email,
                 })
                 .ToList();
         });

@@ -40,7 +40,7 @@ namespace MMABackend.DataAccessLayer
                 new Shop
                 {
                     Id = ShopIds.fifth.ToInt(),
-                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fourth.ToInt())),
+                    UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(UserIds.fifth.ToInt())),
                     ShopType = ShopType.Market,
                 }
               
