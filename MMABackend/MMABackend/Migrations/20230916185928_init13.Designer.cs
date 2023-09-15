@@ -3,14 +3,16 @@ using System;
 using MMABackend.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMABackend.Migrations
 {
     [DbContext(typeof(UnitOfWork))]
-    partial class UnitOfWorkModelSnapshot : ModelSnapshot
+    [Migration("20230916185928_init13")]
+    partial class init13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace MMABackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("IsActive")
@@ -56,7 +58,7 @@ namespace MMABackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AuctionProductId")
+                    b.Property<int?>("AuctionProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsSubmitted")
@@ -64,6 +66,9 @@ namespace MMABackend.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
@@ -74,6 +79,8 @@ namespace MMABackend.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuctionProductId");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
@@ -627,9 +634,13 @@ namespace MMABackend.Migrations
 
             modelBuilder.Entity("MMABackend.DomainModels.Common.AuctionProductUser", b =>
                 {
-                    b.HasOne("MMABackend.DomainModels.Common.AuctionProduct", "AuctionProduct")
+                    b.HasOne("MMABackend.DomainModels.Common.AuctionProduct", null)
                         .WithMany("AuctionProductsUsers")
-                        .HasForeignKey("AuctionProductId")
+                        .HasForeignKey("AuctionProductId");
+
+                    b.HasOne("MMABackend.DomainModels.Common.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -637,7 +648,7 @@ namespace MMABackend.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("AuctionProduct");
+                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });

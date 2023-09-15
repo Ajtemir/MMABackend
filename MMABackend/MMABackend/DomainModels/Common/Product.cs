@@ -36,9 +36,19 @@ namespace MMABackend.DomainModels.Common
 
         public ICollection<CollectiveSoldProduct> CollectiveSoldProducts { get; set; } =
             new List<CollectiveSoldProduct>();
+
+        public ICollection<AuctionProduct> AuctionProducts { get; set; } = new List<AuctionProduct>();
         [NotMapped]
         public CollectiveSoldProduct CollectiveSoldProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
+        [NotMapped]
+        public AuctionProduct AuctionProduct => AuctionProducts.FirstOrDefault(x => x.IsActive != null && x.IsActive.Value);
         public bool IsSeller(User seller) => User.Id == seller.Id;
         public bool IsNotSeller(User seller) => !IsSeller(seller);
+
+        public void ValidateSeller(User user)
+        {
+            if (IsNotSeller(user))
+                throw new ApplicationException("Вы не являетесь продавцом этого товара");
+        }
     }
 }

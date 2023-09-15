@@ -23,9 +23,16 @@ namespace MMABackend.Helpers.Common
                    throw new ApplicationException("User not found by email");
         }
         
-        public static T FirstOrError<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, string errorMessage = null) where T: class
+        public static T FirstOrError<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate = null, string errorMessage = null) where T: class
         {
-            var elem = source.FirstOrDefault(predicate);
+            var elem = predicate == null ? source.FirstOrDefault() : source.FirstOrDefault(predicate);
+            if(elem == null) throw new ApplicationException(errorMessage ?? $"Not found entity {nameof(T)}");
+            return elem;
+        }
+        
+        public static T FirstOrError<T>(this IEnumerable<T> source, Func<T, bool> predicate = null, string errorMessage = null) where T: class
+        {
+            var elem = predicate == null ? source.FirstOrDefault() : source.FirstOrDefault(predicate);
             if(elem == null) throw new ApplicationException(errorMessage ?? $"Not found entity {nameof(T)}");
             return elem;
         }
@@ -34,6 +41,12 @@ namespace MMABackend.Helpers.Common
         {
             var elem = source.FirstOrDefault(predicate);
             if(elem != null) throw new ApplicationException(errorMessage ?? $"Entity exists {nameof(T)}");
+        }
+        
+        public static void ErrorIfNotExists<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, string errorMessage = null) where T: class
+        {
+            var elem = source.FirstOrDefault(predicate);
+            if(elem == null) throw new ApplicationException(errorMessage ?? $"Entity exists {nameof(T)}");
         }
         
         public static bool Exists<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, string errorMessage = null) where T: class

@@ -16,6 +16,8 @@ namespace MMABackend.Controllers
         {
             var user = _uow.GetUserByEmailOrError(model.Email);
             var product = _uow.Products
+                .Include(x=>x.AuctionProducts)
+                .ThenInclude(x=>x.AuctionProductsUsers)
                 .Include(x=>x.User)
                 .Include(x=>x.Photos)
                 .Include(x=> x.CollectiveSoldProducts.Where(p=>p.IsActual.Value))
@@ -30,7 +32,17 @@ namespace MMABackend.Controllers
                 ? sellerCannotMakeCollectiveOwnProduct
                 : product.CollectiveSoldProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
 
-            return GetByIdResult.Instance(product, isVoted, isSeller);
+            AuctionState auctionState = isSeller
+                ? product.AuctionProduct == null
+                    ? AuctionState.SellerUnmadeAuction
+                    : AuctionState.SellerMadeAuction
+                : product.AuctionProduct == null 
+                    ? AuctionState.NotMadeAuctioned
+                    : product.AuctionProduct.AuctionProductUser == null
+                        ? AuctionState.BuyerUnapply
+                        : AuctionState.BuyerApply;
+            
+            return GetByIdResult.Instance(product, isVoted, isSeller, auctionState);
         });
     }
     
@@ -55,13 +67,16 @@ namespace MMABackend.Controllers
         public int FavoriteCount { get; set; }
         public bool IsFavorite { get; set; }
         public bool IsSeller { get; set; } = false;
+        public AuctionState AuctionState { get; set; }
+        public AuctionDetail AuctionDetail { get; set; }
 
 
-        public static GetByIdResult Instance(Product product, bool? isVoted = null, bool isSeller = false)
+        public static GetByIdResult Instance(Product product, bool? isVoted = null, bool isSeller = false, AuctionState state = default)
         {
             var casted = (GetByIdResult)product;
             casted.IsSetCollective = isVoted;
             casted.IsSeller = isSeller;
+            casted.AuctionState = state;
             return casted;
         }
 
@@ -88,8 +103,25 @@ namespace MMABackend.Controllers
                         entity.CollectiveSoldProduct.StartDate,
                         entity.CollectiveSoldProduct.EndDate
                     ),
+                AuctionDetail =entity.AuctionProduct == null 
+                    ? null 
+                    : new AuctionDetail
+                    {
+                        EndDate = entity.AuctionProduct.StartDate,
+                        StartDate = entity.AuctionProduct.EndDate,
+                        StartPrice = entity.AuctionProduct.StartPrice,
+                        CurrentMaxPrice = entity.AuctionProduct.AuctionProductUser?.Price,
+                    },
             };
         }
+    }
+
+    public class AuctionDetail
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public decimal StartPrice { get; set; }
+        public decimal? CurrentMaxPrice { get; set; }
     }
 
     public record CollectiveInfo(

@@ -127,6 +127,48 @@
       <Compile Update="DataAccessLayer\MarketShopPointsSeeding.cs">
         <DependentUpon>DataSeed.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\MakeAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentMakeAuction.cs">
+        <DependentUpon>MakeAuction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ContextBaseController.cs">
+        <DependentUpon>BaseController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DomainModels\Common\AuctionProductStatus.cs">
+        <DependentUpon>AuctionProduct.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UnmakeAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentUnmakeAuction.cs">
+        <DependentUpon>UnmakeAuction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\SubmitAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\Apply.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentApply.cs">
+        <DependentUpon>Apply.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\Unapply.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentUnapply.cs">
+        <DependentUpon>Unapply.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UpdateAppliedAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentUpdateAppliedAuction.cs">
+        <DependentUpon>UpdateAppliedAuction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentSubmitAuction.cs">
+        <DependentUpon>SubmitAuction.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
