@@ -127,6 +127,15 @@
       <Compile Update="DataAccessLayer\MarketShopPointsSeeding.cs">
         <DependentUpon>DataSeed.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\MakeAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentMakeAuction.cs">
+        <DependentUpon>MakeAuction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ContextBaseController.cs">
+        <DependentUpon>BaseController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
