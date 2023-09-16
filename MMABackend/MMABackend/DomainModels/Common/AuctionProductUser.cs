@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MMABackend.DomainModels.Common
@@ -13,5 +14,9 @@ namespace MMABackend.DomainModels.Common
         public int  ProductId { get; set; }
         [ForeignKey(nameof(ProductId))]
         public Product Product { get; set; }
+
+        public bool IsSubmitted { get; set; } = false;
+        public decimal Price { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
     }
 }

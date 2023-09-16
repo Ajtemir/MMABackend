@@ -148,6 +148,18 @@
       <Compile Update="Controllers\SubmitAuction.cs">
         <DependentUpon>AuctionController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\Apply.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentApply.cs">
+        <DependentUpon>Apply.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\Unapply.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentUnapply.cs">
+        <DependentUpon>Unapply.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
