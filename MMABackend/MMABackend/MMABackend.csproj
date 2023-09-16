@@ -166,6 +166,9 @@
       <Compile Update="Controllers\ArgumentUpdateAppliedAuction.cs">
         <DependentUpon>UpdateAppliedAuction.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\ArgumentSubmitAuction.cs">
+        <DependentUpon>SubmitAuction.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
