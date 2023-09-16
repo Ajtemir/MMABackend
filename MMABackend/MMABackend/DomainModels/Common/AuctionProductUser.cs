@@ -11,9 +11,9 @@ namespace MMABackend.DomainModels.Common
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
-        public int  ProductId { get; set; }
-        [ForeignKey(nameof(ProductId))]
-        public Product Product { get; set; }
+        public int  AuctionProductId { get; set; }
+        [ForeignKey(nameof(AuctionProductId))]
+        public AuctionProduct AuctionProduct { get; set; }
 
         public bool IsSubmitted { get; set; } = false;
         public decimal Price { get; set; }

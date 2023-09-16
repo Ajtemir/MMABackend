@@ -44,7 +44,7 @@ namespace MMABackend.DomainModels.Common
         public void ValidateSeller(User user)
         {
             if (IsNotSeller(user))
-                throw new Exception("Вы не являетесь продавцом этого товара");
+                throw new ApplicationException("Вы не являетесь продавцом этого товара");
         }
     }
 }

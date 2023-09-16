@@ -7,6 +7,7 @@ namespace MMABackend.Controllers
 {
     public partial class AuctionController
     {
+        [HttpPost]
         public ActionResult MakeAuction(ArgumentMakeAuction argument) => Execute(() =>
         {
             var user = Uow.GetUserByEmailOrError(argument.Email);
@@ -20,6 +21,8 @@ namespace MMABackend.Controllers
                 StartPrice = argument.StartPrice,
                 StartDate = argument.StartDate,
                 EndDate = argument.EndDate,
+                IsActive = true,
+                Status = AuctionProductStatus.Actual,
             });
             Uow.SaveChanges();
         });

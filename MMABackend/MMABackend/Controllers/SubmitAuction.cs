@@ -8,7 +8,8 @@ namespace MMABackend.Controllers
 {
     public partial class AuctionController
     {
-        public ActionResult SubmitAuction(ArgumentMakeAuction argument) => Execute(() =>
+        [HttpPost]
+        public ActionResult SubmitAuction(ArgumentSubmitAuction argument) => Execute(() =>
         {
             var user = Uow.GetUserByEmailOrError(argument.Email);
             var product = Uow.Products.FirstOrError(x => x.Id == argument.ProductId);

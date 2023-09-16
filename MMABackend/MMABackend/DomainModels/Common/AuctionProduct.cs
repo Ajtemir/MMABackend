@@ -17,7 +17,7 @@ namespace MMABackend.DomainModels.Common
         public Product Product { get; set; }
         public bool? IsActive { get; set; } = null;
         public DateTime StartDate { get; set; } = DateTime.Now;
-        public DateTime? EndDate { get; set; } = null;
+        public DateTime EndDate { get; set; } 
         public decimal StartPrice { get; set; }
         public AuctionProductStatus Status { get; set; } = AuctionProductStatus.Actual;
         public ICollection<AuctionProductUser> AuctionProductsUsers { get; set; } = new List<AuctionProductUser>();
