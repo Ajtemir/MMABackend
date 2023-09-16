@@ -15,7 +15,7 @@ namespace MMABackend.Controllers
             Uow.AuctionProductUsers.Add(new AuctionProductUser
             {
                 Price = argument.SuggestedPrice,
-                AuctionProductId = argument.ProductId,
+                AuctionProductId = auctionProduct.Id,
                 UserId = user.Id,
             });
             Uow.SaveChanges();
