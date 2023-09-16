@@ -20,7 +20,8 @@ namespace MMABackend.DataAccessLayer
         public DbSet<CollectivePurchaser> CollectivePurchasers { get; set; }
         public DbSet<CollectiveSoldProduct> CollectiveSoldProducts { get; set; }
         public DbSet<ShopPoint> ShopPoints { get; set; }
-
+        public DbSet<AuctionProduct> AuctionProducts { get; set; }
+        public DbSet<AuctionProductUser> AuctionProductUsers { get; set; }
 
     }
 }

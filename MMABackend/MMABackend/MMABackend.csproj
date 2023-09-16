@@ -136,6 +136,18 @@
       <Compile Update="Controllers\ContextBaseController.cs">
         <DependentUpon>BaseController.cs</DependentUpon>
       </Compile>
+      <Compile Update="DomainModels\Common\AuctionProductStatus.cs">
+        <DependentUpon>AuctionProduct.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UnmakeAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentUnmakeAuction.cs">
+        <DependentUpon>UnmakeAuction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\SubmitAuction.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

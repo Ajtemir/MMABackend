@@ -36,6 +36,12 @@ namespace MMABackend.Helpers.Common
             if(elem != null) throw new ApplicationException(errorMessage ?? $"Entity exists {nameof(T)}");
         }
         
+        public static void ErrorIfNotExists<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, string errorMessage = null) where T: class
+        {
+            var elem = source.FirstOrDefault(predicate);
+            if(elem == null) throw new ApplicationException(errorMessage ?? $"Entity exists {nameof(T)}");
+        }
+        
         public static bool Exists<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, string errorMessage = null) where T: class
         {
             var elem = source.FirstOrDefault(predicate);

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MMABackend.DomainModels.Common
 {
-    public class AuctionUser
+    public class AuctionProductUser
     {
         [Key]
         public int Id { get; set; }

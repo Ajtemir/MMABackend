@@ -40,5 +40,11 @@ namespace MMABackend.DomainModels.Common
         public CollectiveSoldProduct CollectiveSoldProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
         public bool IsSeller(User seller) => User.Id == seller.Id;
         public bool IsNotSeller(User seller) => !IsSeller(seller);
+
+        public void ValidateSeller(User user)
+        {
+            if (IsNotSeller(user))
+                throw new Exception("Вы не являетесь продавцом этого товара");
+        }
     }
 }

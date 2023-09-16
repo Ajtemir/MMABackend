@@ -10,6 +10,7 @@ namespace MMABackend.DomainModels.Common
     public class AuctionProduct
     {
         [Key]
+        public int Id { get; set; }
         [ForeignKey(nameof(ProductId))]
         public int ProductId { get; set; }
 
@@ -17,6 +18,14 @@ namespace MMABackend.DomainModels.Common
         public bool? IsActive { get; set; } = null;
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime? EndDate { get; set; } = null;
-        public ICollection<AuctionUser> AuctionUsers { get; set; } = new List<AuctionUser>();
+        public decimal StartPrice { get; set; }
+        public AuctionProductStatus Status { get; set; } = AuctionProductStatus.Actual;
+        public ICollection<AuctionProductUser> AuctionProductsUsers { get; set; } = new List<AuctionProductUser>();
+
+        public void Deactivate()
+        {
+            Status = AuctionProductStatus.Canceled;
+            IsActive = null;
+        }
     }
 }
