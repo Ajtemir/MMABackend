@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace MMABackend.DomainModels.Common
@@ -21,6 +22,8 @@ namespace MMABackend.DomainModels.Common
         public decimal StartPrice { get; set; }
         public AuctionProductStatus Status { get; set; } = AuctionProductStatus.Actual;
         public ICollection<AuctionProductUser> AuctionProductsUsers { get; set; } = new List<AuctionProductUser>();
+        [NotMapped]
+        public AuctionProductUser AuctionProductUser => AuctionProductsUsers.FirstOrDefault();
 
         public void Deactivate()
         {
