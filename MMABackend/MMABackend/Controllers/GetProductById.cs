@@ -36,9 +36,11 @@ namespace MMABackend.Controllers
                 ? product.AuctionProduct == null
                     ? AuctionState.SellerUnmadeAuction
                     : AuctionState.SellerMadeAuction
-                : product.AuctionProduct?.AuctionProductUser == null
-                    ? AuctionState.BuyerUnapply
-                    : AuctionState.BuyerApply;
+                : product.AuctionProduct == null 
+                    ? AuctionState.NotMadeAuctioned
+                    : product.AuctionProduct.AuctionProductUser == null
+                        ? AuctionState.BuyerUnapply
+                        : AuctionState.BuyerApply;
             
             return GetByIdResult.Instance(product, isVoted, isSeller, auctionState);
         });

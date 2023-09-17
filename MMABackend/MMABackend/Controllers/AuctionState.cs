@@ -6,6 +6,6 @@ namespace MMABackend.Controllers
         SellerUnmadeAuction,
         BuyerApply,
         BuyerUnapply,
-        Anonymous,
+        NotMadeAuctioned,
     }
 }
