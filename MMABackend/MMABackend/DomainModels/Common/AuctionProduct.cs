@@ -23,7 +23,7 @@ namespace MMABackend.DomainModels.Common
         public AuctionProductStatus Status { get; set; } = AuctionProductStatus.Actual;
         public ICollection<AuctionProductUser> AuctionProductsUsers { get; set; } = new List<AuctionProductUser>();
         [NotMapped]
-        public AuctionProductUser AuctionProductUser => AuctionProductsUsers.FirstOrDefault();
+        public AuctionProductUser AuctionProductUser => AuctionProductsUsers.OrderByDescending(x=>x.Price).FirstOrDefault();
 
         public void Deactivate()
         {

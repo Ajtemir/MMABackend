@@ -88,7 +88,17 @@ namespace MMABackend.DataAccessLayer
                     CategoryId = (int)CategoriesIds.Автомобиль,
                     UserId = uow.GetUserIdByEmailOrError(SampleData.GetEmailByIndex(1)),
                     ShopId = ShopIds.first.ToInt(),
-                    Description = "Машина 1",
+                    Description = @"Машина 1 name Так как на данный момент в семье 2 универсала один моя Toyota Caldina в комплектации Twister 2 литра с двигателем 3S-FE 2002 года и братовская Toyota Camry Gracia 2.2 литра с двигателем 5S-FE 2001 года то буду иногда в чем-то их сравнивать.
+
+                    Продолжение отзыва будет разделено на пункты для удобства и простоты чтения.
+
+                    Комплектация:
+
+                    - Двигатель простой 3S-FE не D4;
+
+                    - Спойлер;
+
+                    - Обвес по кругу, дорожный просвет не съедает и смотрится симпатичней;",
                 },
                 new Product
                 {
