@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>670413f2-cbb4-40d9-afb7-f07624948444</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -137,6 +139,9 @@
       <Content Remove="Managers\Common\**" />
       <Content Update="web.config">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>
 
