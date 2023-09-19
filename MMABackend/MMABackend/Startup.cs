@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MMABackend.Configurations.Users;
@@ -59,7 +60,17 @@ namespace MMABackend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UnitOfWork uow, IServiceProvider serviceProvider)
         {
-            app.UseStaticFiles();
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+            );
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx => {
+                    ctx.Context.Response.Headers.Append(new KeyValuePair<string, StringValues>("Access-Control-Allow-Origin", "*"));
+                },
+
+            });
             // app.UseMiddleware<ExceptionHandlingMiddleware>();
             if (env.IsDevelopment() == env.IsDevelopment())
             {
@@ -69,14 +80,12 @@ namespace MMABackend
             }
             serviceProvider.DataSeed();
             // app.UseHttpsRedirection();
-            app.UseCors(builder => builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-            );
+            
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseHsts();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
