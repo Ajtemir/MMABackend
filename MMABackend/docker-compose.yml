@@ -1,0 +1,23 @@
+﻿services:
+  mmabackend:
+    build:
+      context: "C:\\Users\\aulanbekuulu\\RiderProjects\\MMABackend\\MMABackend"
+      dockerfile: "MMABackend/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+      - "dotnet"
+      - "/app/bin/Debug/net5.0/MMABackend.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "https://+:443;http://+:80"
+    image: "mmabackend:dev"
+    ports: 
+      - 80:80
+      - 443:443
+    volumes:
+      - "C:\\Users\\aulanbekuulu\\AppData\\Roaming\\ASP.NET\\Https:/root/.aspnet/https"
+      - "C:\\Users\\aulanbekuulu\\AppData\\Roaming\\Microsoft\\UserSecrets:/root/.microsoft/usersecrets"
+      - "C:\\Users\\aulanbekuulu\\RiderProjects\\MMABackend\\MMABackend\\MMABackend:/app:rw"
+    working_dir: "/app"
+    
