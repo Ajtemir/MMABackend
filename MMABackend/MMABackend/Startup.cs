@@ -20,7 +20,6 @@ using MMABackend.Configurations.Users;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.Managers.Users;
-using MMABackend.Services.Users;
 using MMABackend.StartUpConfigurations;
 
 namespace MMABackend
@@ -37,7 +36,6 @@ namespace MMABackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUsersManager, UsersManager>();
             services.AddMemoryCache();
             services.AddCustomJwtConfigurations();

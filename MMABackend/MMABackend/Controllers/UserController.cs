@@ -13,7 +13,6 @@ using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
 using MMABackend.Helpers.Common;
 using MMABackend.Managers.Users;
-using MMABackend.Services.Users;
 using MMABackend.ViewModelResults.Common;
 using MMABackend.ViewModels.User;
 
@@ -24,7 +23,6 @@ namespace MMABackend.Controllers
     [Authorize]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _service;
         private readonly UnitOfWork _uow;
         private readonly IUsersManager _manager;
         private readonly UserManager<User> _userManager;
@@ -33,14 +31,12 @@ namespace MMABackend.Controllers
 
         public UserController
         (
-            IUserService service,
             UnitOfWork uow,
             IUsersManager manager,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager, IWebHostEnvironment appEnvironment)
         {
-            _service = service;
             _uow = uow;
             _manager = manager;
             _userManager = userManager;
@@ -66,7 +62,13 @@ namespace MMABackend.Controllers
             var user = _userManager.Users.FirstOrDefault(x => x.Email == model.Email)
                        ?? throw new Exception("User not found by email");
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
-            return result ? Ok(_service.GetBothTokens(user)) : BadRequest("Wrong password");
+            return result
+                ? Ok(new BothTokenViewModel
+                    {
+                        AccessToken = _manager.GetAccessToken(user),
+                        RefreshToken = _manager.GetRefreshToken(user),
+                    })
+                : BadRequest("Wrong password");
         }
 
         [HttpPost]
@@ -88,7 +90,11 @@ namespace MMABackend.Controllers
             var email = idClaims.Value;
             var user = _userManager.Users.FirstOrDefault(x => x.Email == email)
                        ?? throw new Exception("Not found user while getting access token through refresh one by email");
-            var bothToken = _service.GetBothTokens(user);
+            BothTokenViewModel bothToken = new BothTokenViewModel
+            {
+                AccessToken = _manager.GetAccessToken(user),
+                RefreshToken = _manager.GetRefreshToken(user),
+            };
             return Ok(bothToken);
         }
 
