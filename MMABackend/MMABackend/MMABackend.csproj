@@ -169,6 +169,12 @@
       <Compile Update="Controllers\ArgumentSubmitAuction.cs">
         <DependentUpon>SubmitAuction.cs</DependentUpon>
       </Compile>
+      <Compile Update="DataAccessLayer\AuctionSeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\AuctionState.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
