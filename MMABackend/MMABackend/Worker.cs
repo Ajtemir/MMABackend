@@ -20,6 +20,7 @@ namespace MMABackend
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                 var uow = _serviceScopeFactory.CreateScope().ServiceProvider.GetService<UnitOfWork>();
                 uow.CollectiveSoldProducts.Where(x => x.EndDate <= DateTime.Now).ToList().ForEach(x =>
                 {
