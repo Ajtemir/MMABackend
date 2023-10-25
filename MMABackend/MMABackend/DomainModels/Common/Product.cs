@@ -41,7 +41,7 @@ namespace MMABackend.DomainModels.Common
         [NotMapped]
         public CollectiveSoldProduct CollectiveSoldProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
         [NotMapped]
-        public AuctionProduct AuctionProduct => AuctionProducts.FirstOrDefault(x => x.IsActive != null && x.IsActive.Value);
+        public AuctionProduct AuctionProduct => AuctionProducts.FirstOrDefault(x => x.Status == AuctionProductStatus.Actual);
         public bool IsSeller(User seller) => User.Id == seller.Id;
         public bool IsNotSeller(User seller) => !IsSeller(seller);
 
