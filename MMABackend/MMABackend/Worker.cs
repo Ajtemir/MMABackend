@@ -26,6 +26,10 @@ namespace MMABackend
                 {
                     x.Status = CollectiveProductStatus.Expired;
                 });
+                uow.AuctionProducts.Where(x => x.EndDate <= DateTime.Now).ToList().ForEach(x =>
+                {
+                    x.Status = AuctionProductStatus.Expired;
+                });
                 await uow.SaveChangesAsync();
             }
         }
