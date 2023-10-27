@@ -11,10 +11,10 @@ namespace MMABackend.Helpers.Common
 {
     public static class DbContextExtensions
     {
-        public static User GetUserByEmailOrError(this UnitOfWork uow, string email)
+        public static User GetUserByEmailOrError(this UnitOfWork uow, string email, string message = null)
         {
             return uow.Users.FirstOrDefault(x => x.Email == email) ??
-                   throw new ApplicationException("User not found by email");
+                   throw new ApplicationException(message ?? "User not found by email");
         }
         
         public static string GetUserIdByEmailOrError(this UnitOfWork uow, string email)
