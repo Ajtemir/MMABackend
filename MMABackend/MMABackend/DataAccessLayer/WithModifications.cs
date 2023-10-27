@@ -9,7 +9,7 @@ namespace MMABackend.DataAccessLayer
     {
         public IQueryable<AuctionProduct> ActualAuctionProductsWithOrdering => AuctionProducts
             .OrderByDescending(x => x.StartDate)
-            .Where(x=>x.EndDate <= DateTime.Now && x.Status == AuctionProductStatus.Actual);
+            .Where(x=>x.EndDate >= DateTime.Now && x.Status == AuctionProductStatus.Actual);
         
     }
 }

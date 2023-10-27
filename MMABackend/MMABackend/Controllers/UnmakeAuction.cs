@@ -16,7 +16,6 @@ namespace MMABackend.Controllers
                 .Include(x=>x.User)
                 .FirstOrError(x => x.Id == argument.ProductId);
             product.ValidateSeller(user);
-            // var auctionProducts = Uow.AuctionProductsWithOrdering.ToList();
             var auctionProduct =  Uow.ActualAuctionProductsWithOrdering.FirstOrError(x=>x.ProductId == product.Id,
                 "Товар не является аукционным");
             auctionProduct.Deactivate();

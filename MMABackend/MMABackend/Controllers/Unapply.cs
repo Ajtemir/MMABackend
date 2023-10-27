@@ -10,8 +10,7 @@ namespace MMABackend.Controllers
         [HttpDelete]
         public ActionResult Unapply(ArgumentUnapply argument) => Execute(() =>
         {
-            var auctionProducts = Uow.AuctionProducts.OrderByDescending(x => x.StartDate).ToList();
-            var auctionProduct = auctionProducts.FirstOrError(x=>x.ProductId == argument.ProductId && x.IsActual);
+            var auctionProduct = Uow.ActualAuctionProductsWithOrdering.FirstOrError(x=>x.ProductId == argument.ProductId);
             var user = Uow.GetUserByEmailOrError(argument.BuyerEmail);
             var auctionProductUser = Uow.AuctionProductUsers.FirstOrError(x =>  
                 x.AuctionProductId == auctionProduct.Id &&
