@@ -34,13 +34,13 @@ namespace MMABackend.Controllers
 
             AuctionState auctionState = isSeller
                 ? product.AuctionProduct == null
-                    ? AuctionState.SellerUnmadeAuction
-                    : AuctionState.SellerMadeAuction
+                    ? AuctionState.SellerProductNotAuctioned
+                    : AuctionState.SellerProductAuctioned
                 : product.AuctionProduct == null 
-                    ? AuctionState.NotMadeAuctioned
-                    : product.AuctionProduct.AuctionProductUser == null
-                        ? AuctionState.BuyerUnapply
-                        : AuctionState.BuyerApply;
+                    ? AuctionState.BuyerProductNotAuctioned
+                    : product.AuctionProduct.AuctionProductsUsers.FirstOrDefault(x=>x.UserId == user.Id) == null
+                        ? AuctionState.BuyerNotApplied
+                        : AuctionState.BuyerApplied;
             
             return GetByIdResult.Instance(product, isVoted, isSeller, auctionState);
         });

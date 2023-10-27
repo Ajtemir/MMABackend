@@ -13,7 +13,7 @@ namespace MMABackend.Controllers
             var user = Uow.GetUserByEmailOrError(argument.Email);
             var product = Uow.Products.FirstOrError(x => x.Id == argument.ProductId);
             product.ValidateSeller(user);
-            Uow.AuctionProducts.ErrorIfExists(x=>x.ProductId == product.Id && x.IsActive.Value,
+            Uow.ActualAuctionProductsWithOrdering.ErrorIfExists(x=>x.ProductId == product.Id,
                 "Товар уже является аукционным");
             Uow.AuctionProducts.Add(new AuctionProduct
             {
@@ -21,7 +21,6 @@ namespace MMABackend.Controllers
                 StartPrice = argument.StartPrice,
                 StartDate = argument.StartDate,
                 EndDate = argument.EndDate,
-                IsActive = true,
                 Status = AuctionProductStatus.Actual,
             });
             Uow.SaveChanges();

@@ -2,10 +2,10 @@ namespace MMABackend.Controllers
 {
     public enum AuctionState
     {
-        SellerMadeAuction,
-        SellerUnmadeAuction,
-        BuyerApply,
-        BuyerUnapply,
-        NotMadeAuctioned,
+        SellerProductAuctioned = 0,
+        SellerProductNotAuctioned = 1,
+        BuyerApplied = 2,
+        BuyerNotApplied = 3,
+        BuyerProductNotAuctioned = 4,
     }
 }

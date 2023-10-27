@@ -14,14 +14,13 @@ namespace MMABackend.Controllers
             var user = Uow.GetUserByEmailOrError(argument.Email);
             var product = Uow.Products.FirstOrError(x => x.Id == argument.ProductId);
             product.ValidateSeller(user);
-            var auctionProduct = Uow.AuctionProducts
+            var auctionProduct = Uow.ActualAuctionProductsWithOrdering
                 .Include(x=>x.AuctionProductsUsers)
-                .FirstOrError(x=>x.ProductId == product.Id && x.IsActive.Value,
+                .FirstOrError(x=>x.ProductId == product.Id,
                 "Аукционный товар не найден");
             var auctionProductUser = auctionProduct.AuctionProductsUsers.OrderByDescending(x => x.Price)
                 .FirstOrError(errorMessage : "У товара нет желающих покупателей");
             auctionProduct.Status = AuctionProductStatus.Submitted;
-            auctionProduct.IsActive = null;
             auctionProductUser.IsSubmitted = true;
             Uow.SaveChanges();
         });

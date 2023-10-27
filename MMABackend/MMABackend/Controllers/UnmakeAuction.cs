@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MMABackend.DomainModels.Common;
@@ -15,7 +16,8 @@ namespace MMABackend.Controllers
                 .Include(x=>x.User)
                 .FirstOrError(x => x.Id == argument.ProductId);
             product.ValidateSeller(user);
-            var auctionProduct = Uow.AuctionProducts.FirstOrError(x=>x.ProductId == product.Id && x.IsActive.Value,
+            // var auctionProducts = Uow.AuctionProductsWithOrdering.ToList();
+            var auctionProduct =  Uow.ActualAuctionProductsWithOrdering.FirstOrError(x=>x.ProductId == product.Id,
                 "Товар не является аукционным");
             auctionProduct.Deactivate();
             Uow.SaveChanges();

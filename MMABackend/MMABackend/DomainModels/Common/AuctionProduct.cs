@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using MMABackend.Utilities.Extensions;
 
 namespace MMABackend.DomainModels.Common
 {
-    [Index(nameof(IsActive), nameof(ProductId), IsUnique = true)]
     public class AuctionProduct
     {
         [Key]
@@ -16,7 +16,6 @@ namespace MMABackend.DomainModels.Common
         public int ProductId { get; set; }
 
         public Product Product { get; set; }
-        public bool? IsActive { get; set; } = null;
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } 
         public decimal StartPrice { get; set; }
@@ -24,11 +23,10 @@ namespace MMABackend.DomainModels.Common
         public ICollection<AuctionProductUser> AuctionProductsUsers { get; set; } = new List<AuctionProductUser>();
         [NotMapped]
         public AuctionProductUser AuctionProductUser => AuctionProductsUsers.OrderByDescending(x=>x.Price).FirstOrDefault();
+        [NotMapped]
+        public bool IsActual => EndDate <= DateTime.Now && Status == AuctionProductStatus.Actual;
 
-        public void Deactivate()
-        {
-            Status = AuctionProductStatus.Canceled;
-            IsActive = null;
-        }
+        public void Deactivate() => Status = AuctionProductStatus.Canceled;
+        
     }
 }

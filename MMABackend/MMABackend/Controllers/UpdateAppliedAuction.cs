@@ -11,7 +11,8 @@ namespace MMABackend.Controllers
         public ActionResult UpdateAppliedAuction(ArgumentUpdateAppliedAuction argument) => Execute(() =>
         {
             var user = Uow.GetUserByEmailOrError(argument.BuyerEmail);
-            var productAuction = Uow.AuctionProducts.FirstOrError(x => x.Id == argument.ProductId && x.IsActive.Value);
+            var productAuctions = Uow.AuctionProducts.OrderByDescending(x=> x.StartDate);
+            var productAuction = Uow.AuctionProducts.FirstOrError(x => x.Id == argument.ProductId && x.IsActual);
             var auctionProductUser = Uow.AuctionProductUsers.FirstOrError(x => x.UserId == user.Id && x.AuctionProductId == productAuction.Id);
             auctionProductUser.Price = argument.UpdatedPrice;
             Uow.SaveChanges();
