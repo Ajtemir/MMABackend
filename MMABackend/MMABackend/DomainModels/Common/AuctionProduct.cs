@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using MMABackend.Controllers;
 using MMABackend.Utilities.Extensions;
 
 namespace MMABackend.DomainModels.Common
@@ -27,6 +28,13 @@ namespace MMABackend.DomainModels.Common
         public bool IsActual => EndDate <= DateTime.Now && Status == AuctionProductStatus.Actual;
 
         public void Deactivate() => Status = AuctionProductStatus.Canceled;
+        public AuctionDetail GetDetail => new AuctionDetail
+        {
+            EndDate = EndDate,
+            StartDate = StartDate,
+            StartPrice = StartPrice,
+            CurrentMaxPrice = AuctionProductUser?.Price,
+        };
         
     }
 }

@@ -178,6 +178,9 @@
       <Compile Update="DataAccessLayer\WithModifications.cs">
         <DependentUpon>UnitOfWork.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetAuctionDetail.cs">
+        <DependentUpon>AuctionController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
