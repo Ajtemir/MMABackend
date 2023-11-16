@@ -13,6 +13,7 @@ namespace MMABackend.Controllers
             var user = Uow.GetUserByEmailOrError(argument.Email);
             var product = Uow.Products
                 .Include(x=>x.AuctionProducts)
+                .ThenInclude(x=>x.AuctionProductsUsers)
                 .FirstOrError(x => x.Id == argument.ProductId);
             var isSeller = product.IsSeller(user);
             AuctionState auctionState = isSeller
