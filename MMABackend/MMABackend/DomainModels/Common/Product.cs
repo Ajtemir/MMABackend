@@ -41,13 +41,22 @@ namespace MMABackend.DomainModels.Common
         [NotMapped]
         public CollectiveSoldProduct CollectiveSoldProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
         [NotMapped]
-        public AuctionProduct AuctionProduct => AuctionProducts.FirstOrDefault(x => x.Status == AuctionProductStatus.Actual);
+        public AuctionProduct AuctionProduct => AuctionProducts.FirstOrDefault(x =>x.IsAuctionElseReduction && x.Status == AuctionProductStatus.Actual);
+        public AuctionProduct ReductionProduct => AuctionProducts.FirstOrDefault(x => !x.IsAuctionElseReduction && x.Status == AuctionProductStatus.Actual);
         public bool IsSeller(User seller) => UserId == seller.Id;
         public bool IsNotSeller(User seller) => !IsSeller(seller);
 
         public void ValidateSeller(User user)
         {
             if (IsNotSeller(user))
+                throw new ApplicationException("Вы не являетесь продавцом этого товара");
+        }
+
+        public bool IsSellerById(string userId) => UserId == userId;
+        public bool IsNotSellerById(string userId) => !IsSellerById(userId);
+        public void ValidateSellerById(string userId)
+        {
+            if (IsNotSellerById(userId))
                 throw new ApplicationException("Вы не являетесь продавцом этого товара");
         }
     }

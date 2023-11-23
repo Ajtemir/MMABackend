@@ -18,5 +18,6 @@ namespace MMABackend.DomainModels.Common
         public bool IsSubmitted { get; set; } = false;
         public decimal Price { get; set; }
         public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime? EndDate { get; set; }
     }
 }

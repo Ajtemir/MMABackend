@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MMABackend.Configurations.Users;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
@@ -21,21 +22,15 @@ namespace MMABackend.Controllers
     [ApiController]
     [Route("[controller]/[action]")]
     [Authorize]
-    public class UserController : ControllerBase
+    public class UserController : ContextBaseController
     {
         private readonly UnitOfWork _uow;
         private readonly IUsersManager _manager;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IWebHostEnvironment _appEnvironment;
-
-        public UserController
-        (
-            UnitOfWork uow,
-            IUsersManager manager,
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
-            RoleManager<IdentityRole> roleManager, IWebHostEnvironment appEnvironment)
+        
+        public UserController(ILogger<UserController> logger, UnitOfWork uow, IUsersManager manager, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment appEnvironment) : base(logger, uow)
         {
             _uow = uow;
             _manager = manager;
@@ -79,17 +74,11 @@ namespace MMABackend.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetAccessToken")]
+        [HttpPost]
         [Authorize(AuthenticationSchemes = RefreshTokenConfig.SchemeName)]
         public ActionResult<BothTokenViewModel> GetAccessTokenByRefreshToken()
         {
-            var idClaims = HttpContext.User
-                .FindFirst(x => x.Type == RefreshTokenConfig.UserIdClaim);
-            if (idClaims is null)
-                throw new Exception("While getting access token by refresh token user id claim not found");
-            var email = idClaims.Value;
-            var user = _userManager.Users.FirstOrDefault(x => x.Email == email)
-                       ?? throw new Exception("Not found user while getting access token through refresh one by email");
+            var user = _userManager.Users.FirstOrError(x => x.Id == UserId);
             BothTokenViewModel bothToken = new BothTokenViewModel
             {
                 AccessToken = _manager.GetAccessToken(user),
@@ -210,6 +199,6 @@ namespace MMABackend.Controllers
             }
             return Ok();
         }
-        
+
     }
 }

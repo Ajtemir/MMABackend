@@ -110,7 +110,7 @@ namespace MMABackend.Controllers
                         EndDate = entity.AuctionProduct.StartDate,
                         StartDate = entity.AuctionProduct.EndDate,
                         StartPrice = entity.AuctionProduct.StartPrice,
-                        CurrentMaxPrice = entity.AuctionProduct.AuctionProductUser?.Price,
+                        CurrentMaxPrice = entity.AuctionProduct.MaxPricedAuctionProductUser?.Price,
                     },
             };
         }
@@ -122,6 +122,7 @@ namespace MMABackend.Controllers
         public DateTime EndDate { get; set; }
         public decimal StartPrice { get; set; }
         public decimal? CurrentMaxPrice { get; set; }
+        public decimal? CurrentMinPrice { get; set; }
     }
 
     public record CollectiveInfo(
