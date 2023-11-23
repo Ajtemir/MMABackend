@@ -110,7 +110,7 @@ namespace MMABackend.Controllers
                         EndDate = entity.AuctionProduct.StartDate,
                         StartDate = entity.AuctionProduct.EndDate,
                         StartPrice = entity.AuctionProduct.StartPrice,
-                        CurrentMaxPrice = entity.AuctionProduct.AuctionProductUser?.Price,
+                        CurrentMaxPrice = entity.AuctionProduct.MaxPricedAuctionProductUser?.Price,
                     },
             };
         }

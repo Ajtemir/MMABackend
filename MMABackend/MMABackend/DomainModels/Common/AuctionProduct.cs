@@ -22,8 +22,10 @@ namespace MMABackend.DomainModels.Common
         public decimal StartPrice { get; set; }
         public AuctionProductStatus Status { get; set; } = AuctionProductStatus.Actual;
         public ICollection<AuctionProductUser> AuctionProductsUsers { get; set; } = new List<AuctionProductUser>();
+        public bool IsAuctionElseReduction { get; set; } = false;
         [NotMapped]
-        public AuctionProductUser AuctionProductUser => AuctionProductsUsers.OrderByDescending(x=>x.Price).FirstOrDefault();
+        public AuctionProductUser MaxPricedAuctionProductUser => AuctionProductsUsers.OrderByDescending(x=>x.Price).FirstOrDefault();
+        public AuctionProductUser MinPricedAuctionProductUser => AuctionProductsUsers.OrderBy(x=>x.Price).FirstOrDefault();
         [NotMapped]
         public bool IsActual => EndDate <= DateTime.Now && Status == AuctionProductStatus.Actual;
 
@@ -33,7 +35,7 @@ namespace MMABackend.DomainModels.Common
             EndDate = EndDate,
             StartDate = StartDate,
             StartPrice = StartPrice,
-            CurrentMaxPrice = AuctionProductUser?.Price,
+            CurrentMaxPrice = MaxPricedAuctionProductUser?.Price,
         };
         
     }
