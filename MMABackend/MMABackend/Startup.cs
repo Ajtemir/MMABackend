@@ -39,7 +39,6 @@ namespace MMABackend
         {
             services.AddScoped<IUsersManager, UsersManager>();
             services.AddMemoryCache();
-            services.AddCustomJwtConfigurations();
             services.AddCors();
             services.AddDbContext<UnitOfWork>(options =>
                 {
@@ -47,6 +46,7 @@ namespace MMABackend
                 }
             );
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UnitOfWork>().AddDefaultTokenProviders();
+            services.AddCustomJwtConfigurations();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );

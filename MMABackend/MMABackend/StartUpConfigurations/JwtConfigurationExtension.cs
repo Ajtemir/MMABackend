@@ -15,8 +15,15 @@ namespace MMABackend.StartUpConfigurations
                 throw new ArgumentNullException(nameof(services));
             }
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer( AccessTokenConfig.SchemeName,options =>
+            services
+                .AddAuthentication(
+                    options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -40,7 +47,8 @@ namespace MMABackend.StartUpConfigurations
                         IssuerSigningKey = RefreshTokenConfig.GetSymmetricSecurityKey(),
                         ValidateIssuerSigningKey = true,
                     };
-                });
+                })
+                ;
         }
     }
 }
