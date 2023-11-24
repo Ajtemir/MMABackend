@@ -181,6 +181,12 @@
       <Compile Update="Controllers\GetAuctionDetail.cs">
         <DependentUpon>AuctionController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\ApplyReduction.cs">
+        <DependentUpon>ReductionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ApplyReductionArgument.cs">
+        <DependentUpon>ApplyReduction.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
