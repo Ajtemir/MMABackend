@@ -190,6 +190,36 @@
       <Compile Update="DataAccessLayer\FilteredReductions.cs">
         <DependentUpon>UnitOfWork.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\DenyReduction.cs">
+        <DependentUpon>ReductionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\DenyReductionArgument.cs">
+        <DependentUpon>DenyReduction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\MakeReduction.cs">
+        <DependentUpon>ReductionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\MakeReductionArgument.cs">
+        <DependentUpon>MakeReduction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UnmakeReduction.cs">
+        <DependentUpon>ReductionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UnmakeReductionArgument.cs">
+        <DependentUpon>UnmakeReduction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\GetReductionDetail.cs">
+        <DependentUpon>ReductionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\GetReductionDetailArgument.cs">
+        <DependentUpon>GetReductionDetail.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\GetReductionDetailResult.cs">
+        <DependentUpon>GetReductionDetail.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ReductionState.cs">
+        <DependentUpon>GetReductionDetail.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

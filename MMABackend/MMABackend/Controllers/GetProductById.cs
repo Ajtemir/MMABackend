@@ -122,6 +122,7 @@ namespace MMABackend.Controllers
         public DateTime EndDate { get; set; }
         public decimal StartPrice { get; set; }
         public decimal? CurrentMaxPrice { get; set; }
+        public decimal? CurrentMinPrice { get; set; }
     }
 
     public record CollectiveInfo(

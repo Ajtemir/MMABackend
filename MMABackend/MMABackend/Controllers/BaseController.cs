@@ -55,7 +55,7 @@ namespace MMABackend.Controllers
             }
         }
 
-        protected string UserId => User.Identity.Name;
+        protected string UserId => User.Identity?.Name ?? throw new ApplicationException("Не найден идентификатор пользователя");
     }
 
     public class Result<T> : Result

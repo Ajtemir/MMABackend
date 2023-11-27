@@ -27,7 +27,7 @@ namespace MMABackend.Controllers
                         : AuctionState.BuyerApplied;
             return new GetAuctionDetailResult
             {
-                AuctionDetail = product.AuctionProduct?.GetDetail,
+                AuctionDetail = product.AuctionProduct?.GetDetailMax,
                 AuctionState = auctionState,
 
             };

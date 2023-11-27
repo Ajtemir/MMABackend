@@ -50,5 +50,13 @@ namespace MMABackend.DomainModels.Common
             if (IsNotSeller(user))
                 throw new ApplicationException("Вы не являетесь продавцом этого товара");
         }
+
+        public bool IsSellerById(string userId) => UserId == userId;
+        public bool IsNotSellerById(string userId) => !IsSellerById(userId);
+        public void ValidateSellerById(string userId)
+        {
+            if (IsNotSellerById(userId))
+                throw new ApplicationException("Вы не являетесь продавцом этого товара");
+        }
     }
 }

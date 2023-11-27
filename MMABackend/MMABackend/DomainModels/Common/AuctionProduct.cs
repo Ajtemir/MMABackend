@@ -30,12 +30,20 @@ namespace MMABackend.DomainModels.Common
         public bool IsActual => EndDate <= DateTime.Now && Status == AuctionProductStatus.Actual;
 
         public void Deactivate() => Status = AuctionProductStatus.Canceled;
-        public AuctionDetail GetDetail => new AuctionDetail
+        public AuctionDetail GetDetailMax => new AuctionDetail
         {
             EndDate = EndDate,
             StartDate = StartDate,
             StartPrice = StartPrice,
             CurrentMaxPrice = MaxPricedAuctionProductUser?.Price,
+        };
+        
+        public AuctionDetail GetDetailMin => new AuctionDetail
+        {
+            EndDate = EndDate,
+            StartDate = StartDate,
+            StartPrice = StartPrice,
+            CurrentMinPrice = MinPricedAuctionProductUser?.Price,
         };
         
     }
