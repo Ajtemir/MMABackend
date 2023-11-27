@@ -11,7 +11,7 @@ namespace MMABackend.Controllers
         [HttpPost]
         public ActionResult Apply([FromBody]ApplyReductionArgument argument) => Execute(() =>
         {
-            
+
         });
     }
 }

@@ -54,6 +54,8 @@ namespace MMABackend.Controllers
                 return BadRequest(Result.Bad(e.Message, e.StackTrace, true));
             }
         }
+
+        protected string UserId => User.Identity.Name;
     }
 
     public class Result<T> : Result

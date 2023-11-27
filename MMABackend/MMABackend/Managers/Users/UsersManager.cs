@@ -58,7 +58,7 @@ namespace MMABackend.Managers.Users
                 expires: now.Add(TimeSpan.FromMinutes(RefreshTokenConfig.LifetimeInMinutes)),
                 signingCredentials: new SigningCredentials(RefreshTokenConfig.GetSymmetricSecurityKey(), RefreshTokenConfig.Algorithm));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            return "bearer" + encodedJwt;
+            return "bearer " + encodedJwt;
         }
 
         public async Task SendEmailAsync(string email, string secretWord)

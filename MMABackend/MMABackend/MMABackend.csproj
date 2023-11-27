@@ -175,7 +175,7 @@
       <Compile Update="Controllers\AuctionState.cs">
         <DependentUpon>AuctionController.cs</DependentUpon>
       </Compile>
-      <Compile Update="DataAccessLayer\WithModifications.cs">
+      <Compile Update="DataAccessLayer\FilteredAuctions.cs">
         <DependentUpon>UnitOfWork.cs</DependentUpon>
       </Compile>
       <Compile Update="Controllers\GetAuctionDetail.cs">
@@ -186,6 +186,9 @@
       </Compile>
       <Compile Update="Controllers\ApplyReductionArgument.cs">
         <DependentUpon>ApplyReduction.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DataAccessLayer\FilteredReductions.cs">
+        <DependentUpon>UnitOfWork.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 
