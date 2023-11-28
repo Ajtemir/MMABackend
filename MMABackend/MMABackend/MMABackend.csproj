@@ -220,6 +220,12 @@
       <Compile Update="Controllers\ReductionState.cs">
         <DependentUpon>GetReductionDetail.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\SubmitReduction.cs">
+        <DependentUpon>ReductionController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\ArgumentSubmitReduction.cs">
+        <DependentUpon>SubmitReduction.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

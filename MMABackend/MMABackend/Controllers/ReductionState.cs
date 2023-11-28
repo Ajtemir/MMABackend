@@ -2,10 +2,10 @@
 {
     public enum ReductionState
     {
-        SellerProductAuctioned = 0,
-        SellerProductNotAuctioned = 1,
+        SellerProductReductioned = 0,
+        SellerProductNotReductioned = 1,
         BuyerApplied = 2,
         BuyerNotApplied = 3,
-        BuyerProductNotAuctioned = 4,
+        BuyerProductNotReductioned = 4,
     }
 }

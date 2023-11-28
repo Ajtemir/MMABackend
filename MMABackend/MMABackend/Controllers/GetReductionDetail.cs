@@ -8,7 +8,7 @@ namespace MMABackend.Controllers
 {
     public partial class ReductionController
     {
-        [HttpPost]
+        [HttpGet]
         public ActionResult Get([FromQuery] GetReductionDetailArgument argument) => Execute(() =>
         {
             var product = Uow.Products
@@ -17,17 +17,17 @@ namespace MMABackend.Controllers
                 .FirstOrError(x => x.Id == argument.ProductId);
             var isSeller = product.IsSellerById(UserId);
             ReductionState reductionState = isSeller
-                ? product.AuctionProduct == null
-                    ? ReductionState.SellerProductNotAuctioned
-                    : ReductionState.SellerProductAuctioned
-                : product.AuctionProduct == null 
-                    ? ReductionState.BuyerProductNotAuctioned
-                    : product.AuctionProduct.AuctionProductsUsers.FirstOrDefault(x=>x.UserId == UserId) == null
+                ? product.ReductionProduct == null
+                    ? ReductionState.SellerProductNotReductioned
+                    : ReductionState.SellerProductReductioned
+                : product.ReductionProduct == null 
+                    ? ReductionState.BuyerProductNotReductioned
+                    : product.ReductionProduct.AuctionProductsUsers.FirstOrDefault(x=>x.UserId == UserId) == null
                         ? ReductionState.BuyerNotApplied
                         : ReductionState.BuyerApplied;
             return new GetReductionDetailResult
             {
-                AuctionDetail = product.AuctionProduct?.GetDetailMin,
+                AuctionDetail = product.ReductionProduct?.GetDetailMin,
                 ReductionState = reductionState,
             };
         });
