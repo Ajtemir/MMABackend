@@ -8,7 +8,6 @@ namespace MMABackend.Controllers
 {
     public partial class ReductionController
     {
-        [Authorize]
         [HttpPost]
         public ActionResult Unmake([FromBody]UnmakeReductionArgument argument) => Execute(() =>
         {

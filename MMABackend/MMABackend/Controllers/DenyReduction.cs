@@ -7,7 +7,6 @@ namespace MMABackend.Controllers
 {
     public partial class ReductionController
     {
-        [Authorize]
         [HttpPost]
         public ActionResult Deny([FromBody] DenyReductionArgument argument) => Execute(() =>
         {

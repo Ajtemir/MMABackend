@@ -8,7 +8,6 @@ namespace MMABackend.Controllers
 {
     public partial class ReductionController
     {
-        [Authorize]
         [HttpPost]
         public ActionResult Get([FromQuery] GetReductionDetailArgument argument) => Execute(() =>
         {
