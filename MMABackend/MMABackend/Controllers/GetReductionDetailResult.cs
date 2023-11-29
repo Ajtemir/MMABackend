@@ -2,7 +2,7 @@
 {
     public class GetReductionDetailResult
     {
-        public AuctionDetail AuctionDetail { get; set; }
+        public AuctionDetail ReductionDetail { get; set; }
         public ReductionState ReductionState { get; set; }
     }
 }

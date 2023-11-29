@@ -14,7 +14,7 @@ namespace MMABackend.Controllers
             var product = Uow.Products
                 .Include(x=>x.User)
                 .FirstOrError(x => x.Id == argument.ProductId);
-            var auctionProduct =  Uow.ActualAuctionProductsWithOrdering.FirstOrError(x=>x.ProductId == product.Id,
+            var auctionProduct =  Uow.ActualReductionProductsWithOrdering.FirstOrError(x=>x.ProductId == product.Id,
                 "Товар не является тендерным");
             auctionProduct.Deactivate();
             Uow.SaveChanges();

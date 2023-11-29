@@ -27,7 +27,7 @@ namespace MMABackend.Controllers
                         : ReductionState.BuyerApplied;
             return new GetReductionDetailResult
             {
-                AuctionDetail = product.ReductionProduct?.GetDetailMin,
+                ReductionDetail = product.ReductionProduct?.GetDetailMin,
                 ReductionState = reductionState,
             };
         });
