@@ -1,0 +1,17 @@
+﻿version: '3.8'
+
+services:
+  webapp:
+    image: aytike/mma/backend:1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DEVELOPMENT
+      - DOTNET_VERSION=5.0.17
+      - ASPNET_VERSION=5.0.17
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - ASPNETCORE_URLS=http://+:80
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
