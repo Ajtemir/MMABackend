@@ -2,7 +2,7 @@
 
 services:
   webapp:
-    image: aytike/mma/backend:1
+    image: aytike/mmaback:latest
     build:
       context: .
       dockerfile: Dockerfile
