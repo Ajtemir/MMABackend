@@ -28,4 +28,4 @@ jobs:
           context: MMABackend/MMABackend/.
           file: MMABackend/MMABackend//Dockerfile
           push: true
-          tags: aytike/mma/back:latest
+          tags: aytike/mmaback:latest
