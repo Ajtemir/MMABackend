@@ -25,7 +25,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ~/MMABackend/MMABackend/.
-          file: ~/MMABackend/MMABackend/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
           tags: aytike/mma/back:latest
