@@ -3,6 +3,8 @@
 services:
   webapp:
     image: aytike/mmaback:latest
+    volumes:
+      - database:/src/MMABackend/debug/database
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,3 +17,12 @@ services:
       - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_URLS=http://+:80
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Debian-10
+      - NUGET_XMLDOC_MODE=skip
+      - DOTNET_GENERATE_ASPNET_CERTIFICATE=false
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+      - DOTNET_SDK_VERSION=5.0.408
+    restart: unless-stopped
+volumes: 
+  database:
+    driver: local # \\wsl$\docker-desktop-data\data\docker\volumes
