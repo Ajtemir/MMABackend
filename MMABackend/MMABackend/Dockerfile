@@ -6,4 +6,5 @@ RUN dotnet restore "MMABackend/MMABackend.csproj"
 WORKDIR "/src/MMABackend"
 RUN dotnet build "MMABackend.csproj" -o ./debug
 WORKDIR /src/MMABackend/debug
+RUN mkdir -p ./database
 ENTRYPOINT ["dotnet", "MMABackend.dll"]
