@@ -18,7 +18,7 @@ namespace MMABackend.DomainModels.Common
         [ForeignKey(nameof(PropertyValue))]
         public int? PropertyValueId { get; set; }
         public PropertyValue PropertyValue { get; set; }
-        public int? LiteralValue { get; set; }
+        public int? NumberValue { get; set; }
       
     }
     

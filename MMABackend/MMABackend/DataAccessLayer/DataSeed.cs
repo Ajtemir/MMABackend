@@ -200,7 +200,7 @@ namespace MMABackend.DataAccessLayer
                     Id = 4,
                     ProductId = 1,
                     PropertyKeyId = PropertyKeyIds.Пробег.ToInt(),
-                    LiteralValue = 1000,
+                    NumberValue = 1000,
                 }
                 );
             uow.SaveChangesWithIdentityInsert<ProductProperty>();
