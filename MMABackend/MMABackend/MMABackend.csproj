@@ -227,6 +227,9 @@
       <Compile Update="Controllers\ArgumentSubmitReduction.cs">
         <DependentUpon>SubmitReduction.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetCategoryById.cs">
+        <DependentUpon>CategoriesController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

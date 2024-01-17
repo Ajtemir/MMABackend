@@ -1,5 +1,6 @@
 ﻿using MMABackend.DomainModels.Common;
 using MMABackend.Helpers.Common;
+using MMABackend.Utilities.Extensions;
 
 namespace MMABackend.DataAccessLayer
 {
@@ -14,18 +15,21 @@ namespace MMABackend.DataAccessLayer
                     Id = (int)CategoriesIds.Товары,
                     Name = "Товары",
                     ImagePath = folderName + "809049f5-00cc-41b9-80ee-9f5437897d3f.png",
+                    ParentCategoryId = null
                 },
                 new Category
                 {
                     Id = (int)CategoriesIds.Транспорт,
                     Name = "Транспорт",
                     ImagePath = folderName + "b86e7369-e6ab-42bb-bb09-d79c8ed85530.png",
+                    ParentCategoryId = CategoriesIds.Товары.ToInt()
                 },
                 new Category
                 {
                     Id = (int)CategoriesIds.Домашняя_утварь,
                     Name = "Домашняя утварь",
                     ImagePath = folderName + "cat1.png",
+                    ParentCategoryId = CategoriesIds.Товары.ToInt()
                 },
                 new Category
                 {
