@@ -21,14 +21,14 @@ namespace MMABackend.Controllers
             
             var category = _uow.GetCategoryPropertyAndValuesById(product.CategoryId);
 
-            IEnumerable<CategoryProperty> options = from prKey in category.PropertyKeys
+            IEnumerable<CategoryProperty> options = from prKey in category.CategoryPropertyKeys
                 from prProperty in product.ProductProperties.Where(x => x.PropertyValue.PropertyKeyId == prKey.Id)
                     .DefaultIfEmpty()
                 select new CategoryProperty
                 {
                     SelectedId = prProperty?.Id,
                     SelectedName = prProperty?.PropertyValue.Name,
-                    PropertyKey = prKey,
+                    PropertyKey = prKey.PropertyKey,
                 };
 
             var res = options.GroupBy(x => x.PropertyKey.Id).Select(group => new
@@ -38,7 +38,7 @@ namespace MMABackend.Controllers
                     x.SelectedId,
                     x.SelectedName,
                 }),
-                group.First().PropertyKey.IsMultiple,
+                IsMultiple = group.First().PropertyKey.IsMultipleOrLiteralDefault,
                 Options = group.First().PropertyKey.PropertyValues.Select(x => new
                 {
                     x.Id,

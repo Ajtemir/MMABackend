@@ -27,16 +27,16 @@ namespace MMABackend.Controllers
             {
                 CategoryName = category.Name,
                 CategoryId = category.Id,
-                PropertyKeys = category.PropertyKeys.Select(x=> 
+                PropertyKeys = category.CategoryPropertyKeys.Select(x=> 
                     new PropertyKeyRecord(
-                        x.IsMultiple,
-                        x.Id,
-                        x.Name,
-                        x.PropertyValues.Select(p=>new PropertyKeyValueRecord(p.Id, p.Name)).ToArray()
+                        IsMultiple: x.PropertyKey.IsMultipleOrLiteralDefault,
+                        x.PropertyKey.Id,
+                        x.PropertyKey.Name,
+                        x.PropertyKey.PropertyValues.Select(p=>new PropertyKeyValueRecord(p.Id, p.Name)).ToArray()
                     )).ToList(),
             };
         }
     }
-    public record PropertyKeyRecord(bool IsMultiple, int Id, string Name, PropertyKeyValueRecord[] PropertyKeys);
+    public record PropertyKeyRecord(bool? IsMultiple, int Id, string Name, PropertyKeyValueRecord[] PropertyKeys);
     public record PropertyKeyValueRecord(int Id, string Name);
 }

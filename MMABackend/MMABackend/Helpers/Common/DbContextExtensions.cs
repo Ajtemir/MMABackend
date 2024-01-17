@@ -64,8 +64,9 @@ namespace MMABackend.Helpers.Common
         public static Category GetCategoryPropertyAndValuesById(this UnitOfWork uow, int categoryId)
         {
             return uow.Categories
-                .Include(x => x.PropertyKeys)
-                .ThenInclude(x => x.PropertyValues)
+                .Include(x => x.CategoryPropertyKeys)
+                .ThenInclude(x => x.PropertyKey)
+                .ThenInclude(x=>x.PropertyValues)
                 .FirstOrError(x => x.Id == categoryId);
         }
     }

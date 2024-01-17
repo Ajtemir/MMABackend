@@ -16,7 +16,7 @@ namespace MMABackend.DomainModels.Common
         public Category ParentCategory { get; set; }
         public ICollection<Category> SubCategories { get; set; } = new List<Category>();
         public ICollection<Product> Products { get; set; } = new List<Product>();
-        public ICollection<PropertyKey> PropertyKeys { get; set; } = new List<PropertyKey>();
+        public ICollection<CategoryPropertyKey> CategoryPropertyKeys { get; set; } = new List<CategoryPropertyKey>();
         public string ImagePath { get; set; }
     }
 }

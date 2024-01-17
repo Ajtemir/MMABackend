@@ -230,6 +230,9 @@
       <Compile Update="Controllers\GetCategoryById.cs">
         <DependentUpon>CategoriesController.cs</DependentUpon>
       </Compile>
+      <Compile Update="DataAccessLayer\CategoryPropertyKeySeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
