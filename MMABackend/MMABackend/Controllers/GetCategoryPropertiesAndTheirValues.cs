@@ -32,11 +32,11 @@ namespace MMABackend.Controllers
                         IsMultiple: x.PropertyKey.IsMultipleOrLiteralDefault,
                         x.PropertyKey.Id,
                         x.PropertyKey.Name,
-                        x.PropertyKey.PropertyValues.Select(p=>new PropertyKeyValueRecord(p.Id, p.Name)).ToArray()
+                        PropertyKeyValues: x.PropertyKey.PropertyValues.Select(p=>new PropertyKeyValueRecord(p.Id, p.Name)).ToArray()
                     )).ToList(),
             };
         }
     }
-    public record PropertyKeyRecord(bool? IsMultiple, int Id, string Name, PropertyKeyValueRecord[] PropertyKeys);
+    public record PropertyKeyRecord(bool? IsMultiple, int Id, string Name, PropertyKeyValueRecord[] PropertyKeyValues);
     public record PropertyKeyValueRecord(int Id, string Name);
 }
