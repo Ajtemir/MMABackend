@@ -29,7 +29,7 @@ namespace MMABackend.Controllers
                 CategoryId = category.Id,
                 PropertyKeys = category.CategoryPropertyKeys.Select(x=> 
                     new PropertyKeyRecord(
-                        IsMultiple: x.PropertyKey.IsMultipleOrLiteralDefault,
+                        x.PropertyKey.IsMultipleOrLiteralDefault,
                         x.PropertyKey.Id,
                         x.PropertyKey.Name,
                         x.PropertyKey.PropertyValues.Select(p=>new PropertyKeyValueRecord(p.Id, p.Name)).ToArray()
