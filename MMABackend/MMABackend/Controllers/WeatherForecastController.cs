@@ -42,6 +42,12 @@ namespace MMABackend.Controllers
             _uow.Database.EnsureDeleted();
             return Ok();
         }
+        
+        [HttpGet("[action]")]
+        public ActionResult Test()
+        {
+            return Ok();
+        }
 
         private class Counter
         {
