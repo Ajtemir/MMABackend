@@ -232,6 +232,9 @@
       <Compile Update="DataAccessLayer\CategoryPropertyKeySeeding.cs">
         <DependentUpon>DataSeed.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\UpdateProduct.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

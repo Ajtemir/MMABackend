@@ -80,15 +80,7 @@ namespace MMABackend.Controllers
         });
     }
 
-    public class Property
-    {
-        public int Id { get; set; }
-        public bool? IsMultipleOrLiteralDefault { get; set; }
-        public ICollection<PropertyValue> PropertyValues { get; set; }
-        public List<int> CurrentMultiValues { get; set; } = new();
-        public int? CurrentSingleValue { get; set; }
-        public int? CurrentNumberValue { get; set; }
-    }
+    
     
     public class GetByEmailArgument
     {
