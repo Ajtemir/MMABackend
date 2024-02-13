@@ -23,6 +23,8 @@ namespace MMABackend.Controllers
                 .Include(x=> x.CollectiveSoldProducts.Where(p=>p.IsActual.Value))
                 .ThenInclude(x=> x.CollectivePurchasers)
                 .Include(x => x.Favorites.Where(f=> f.UserId == user.Id)).ThenInclude(x => x.User)
+                .Include(x=>x.ProductProperties).ThenInclude(x=>x.PropertyKey).ThenInclude(x=>x.PropertyValues)
+                .Include(x=>x.Category)
                 .FirstOrError(x => x.Id == model.ProductId);
             
             var sellerCannotMakeCollectiveOwnProduct = (bool?)null;
@@ -41,10 +43,44 @@ namespace MMABackend.Controllers
                     : product.AuctionProduct.AuctionProductsUsers.FirstOrDefault(x=>x.UserId == user.Id) == null
                         ? AuctionState.BuyerNotApplied
                         : AuctionState.BuyerApplied;
+
+            var properties = product.ProductProperties.GroupBy(x => x.PropertyKey)
+            .Select(group =>
+            {
+                var keyProperty = new Property
+                {
+                    Id = group.Key.Id,
+                    IsMultipleOrLiteralDefault = group.Key.IsMultipleOrLiteralDefault,
+                    PropertyValues = group.Key.PropertyValues,
+                };
+                switch (group.Key.IsMultipleOrLiteralDefault)
+                {
+                    case true:
+                        foreach (var productProperty in group)
+                        {
+                            if (productProperty?.PropertyValueId != null)
+                            {
+                                keyProperty.CurrentMultiValues.Add(productProperty.PropertyValueId.Value);
+                            }
+                        }
+                        break;
+                    
+                    case false:
+                        keyProperty.CurrentSingleValue = group.FirstOrDefault()?.PropertyValueId;
+                        break;
+                    
+                    case null:
+                        keyProperty.CurrentNumberValue = group.FirstOrDefault()?.NumberValue;
+                        break;
+                }
+                return keyProperty;
+            }).ToList();
             
-            return GetByIdResult.Instance(product, isVoted, isSeller, auctionState);
+            return GetByIdResult.Instance(product, isVoted, isSeller, auctionState, properties);
         });
     }
+
+    
     
     public class GetByEmailArgument
     {
@@ -69,14 +105,16 @@ namespace MMABackend.Controllers
         public bool IsSeller { get; set; } = false;
         public AuctionState AuctionState { get; set; }
         public AuctionDetail AuctionDetail { get; set; }
+        public List<Property> Properties { get; set; }
 
 
-        public static GetByIdResult Instance(Product product, bool? isVoted = null, bool isSeller = false, AuctionState state = default)
+        public static GetByIdResult Instance(Product product, bool? isVoted = null, bool isSeller = false, AuctionState state = default, List<Property> properties = null)
         {
             var casted = (GetByIdResult)product;
             casted.IsSetCollective = isVoted;
             casted.IsSeller = isSeller;
             casted.AuctionState = state;
+            casted.Properties = properties;
             return casted;
         }
 
