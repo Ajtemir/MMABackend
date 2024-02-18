@@ -22,6 +22,7 @@ namespace MMABackend.DataAccessLayer
         public DbSet<ShopPoint> ShopPoints { get; set; }
         public DbSet<AuctionProduct> AuctionProducts { get; set; }
         public DbSet<AuctionProductUser> AuctionProductUsers { get; set; }
+        public DbSet<CategoryPropertyKey> CategoryPropertyKeys { get; set; }
 
     }
 }

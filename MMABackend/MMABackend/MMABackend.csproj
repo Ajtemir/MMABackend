@@ -28,7 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="database" />
       <Folder Include="wwwroot\categories" />
     </ItemGroup>
 
@@ -229,6 +228,12 @@
       </Compile>
       <Compile Update="Controllers\GetCategoryById.cs">
         <DependentUpon>CategoriesController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DataAccessLayer\CategoryPropertyKeySeeding.cs">
+        <DependentUpon>DataSeed.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Controllers\UpdateProduct.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

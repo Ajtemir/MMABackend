@@ -20,6 +20,7 @@ namespace MMABackend.DataAccessLayer
             uow.ProductSeeding();
             uow.ProductImageSeeding();
             uow.ProductPropertySeed();
+            uow.CategoryPropertyKeySeeding();
             uow.ProductValueSeed();
             uow.ProductPropertyValueSeeding();
             uow.FavoritesSeeding();
@@ -36,15 +37,23 @@ namespace MMABackend.DataAccessLayer
                     CategoryId = (int)CategoriesIds.Автомобиль,
                     Name = "Руль",
                     Id = (int)PropertyKeyIds.Руль,
+                    IsMultipleOrLiteralDefault = false,
                 },
                 new PropertyKey
                 {
                     CategoryId = (int)CategoriesIds.Автомобиль,
                     Name = "Топливо",
                     Id = (int)PropertyKeyIds.Топливо,
-                    IsMultiple = true,
+                    IsMultipleOrLiteralDefault = true,
+                },
+                new PropertyKey
+                {
+                    CategoryId = (int)CategoriesIds.Автомобиль,
+                    Name = "Пробег",
+                    Id = (int)PropertyKeyIds.Пробег,
+                    IsMultipleOrLiteralDefault = null,
                 }
-                );
+            );
             uow.SaveChangesWithIdentityInsert<PropertyKey>();
         }
         
@@ -55,26 +64,26 @@ namespace MMABackend.DataAccessLayer
                 {
                     PropertyKeyId = (int)PropertyKeyIds.Руль,
                     Name = "Правый",
-                    Id = 1,
+                    Id = PropertyValueIds.РульПравый.ToInt(),
                 },
                 new PropertyValue
                 {
                     PropertyKeyId = (int)PropertyKeyIds.Руль,
                     Name = "Левый",
-                    Id = 2,
+                    Id = PropertyValueIds.РульЛевый.ToInt(),
                 },
                 
                 new PropertyValue
                 {
                     PropertyKeyId = (int)PropertyKeyIds.Топливо,
                     Name = "Бензин",
-                    Id = 3,
+                    Id = PropertyValueIds.ТопливоБензин.ToInt(),
                 },
                 new PropertyValue
                 {
                     PropertyKeyId = (int)PropertyKeyIds.Топливо,
                     Name = "Дизель",
-                    Id = 4,
+                    Id = PropertyValueIds.ТопливоДизель.ToInt(),
                 }
             );
             uow.SaveChangesWithIdentityInsert<PropertyValue>();
@@ -169,19 +178,29 @@ namespace MMABackend.DataAccessLayer
                 {
                     Id = 1,
                     ProductId = 1,
-                    PropertyValueId = 1,
+                    PropertyValueId = PropertyValueIds.РульЛевый.ToInt(),
+                    PropertyKeyId = PropertyKeyIds.Руль.ToInt(),
                 },
                 new ProductProperty
                 {
                     Id = 2,
                     ProductId = 1,
-                    PropertyValueId = 3,
+                    PropertyKeyId = PropertyKeyIds.Топливо.ToInt(),
+                    PropertyValueId = PropertyValueIds.ТопливоДизель.ToInt(),
                 },
                 new ProductProperty
                 {
                     Id = 3,
                     ProductId = 1,
-                    PropertyValueId = 4,
+                    PropertyKeyId = PropertyKeyIds.Топливо.ToInt(),
+                    PropertyValueId = PropertyValueIds.ТопливоБензин.ToInt(),
+                },
+                new ProductProperty
+                {
+                    Id = 4,
+                    ProductId = 1,
+                    PropertyKeyId = PropertyKeyIds.Пробег.ToInt(),
+                    NumberValue = 1000,
                 }
                 );
             uow.SaveChangesWithIdentityInsert<ProductProperty>();
@@ -200,5 +219,14 @@ namespace MMABackend.DataAccessLayer
     {
         Руль = 1,
         Топливо = 2,
+        Пробег = 3,
+    }
+    
+    public enum PropertyValueIds
+    {
+        РульПравый = 1,
+        РульЛевый = 2,
+        ТопливоБензин = 3,
+        ТопливоДизель = 4,
     }
 }

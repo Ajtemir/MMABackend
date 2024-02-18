@@ -12,8 +12,13 @@ namespace MMABackend.DomainModels.Common
         public int Id { get; set; }
         public int? ProductId { get; set; }
         public Product Product { get; set; }
+        [ForeignKey(nameof(PropertyKey))]
+        public int PropertyKeyId { get; set; }
+        public PropertyKey PropertyKey { get; set; }
+        [ForeignKey(nameof(PropertyValue))]
         public int? PropertyValueId { get; set; }
         public PropertyValue PropertyValue { get; set; }
+        public int? NumberValue { get; set; }
       
     }
     
