@@ -3,8 +3,7 @@
 services:
   webapp:
     image: aytike/mmaback:latest
-    volumes:
-      - database:/src/MMABackend/debug/database
+   
     build:
       context: .
       dockerfile: Dockerfile
