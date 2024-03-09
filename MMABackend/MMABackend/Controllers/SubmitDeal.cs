@@ -5,12 +5,12 @@ using MMABackend.Helpers.Common;
 
 namespace MMABackend.Controllers
 {
-    public partial class CollectiveTradeController
+    public partial class GroupDiscountController
     {
         [HttpPost]
         public ActionResult SubmitDeal([FromBody]SubmitDeal args) => Execute(() =>
         {
-            var product = _uow.CollectiveSoldProducts
+            var product = _uow.GroupDiscountProducts
                 .FirstOrError(x => x.IsActual != null && x.IsActual.Value && x.ProductId == args.ProductId);
             product.Status = CollectiveProductStatus.Submitted;
             product.IsActual = null;

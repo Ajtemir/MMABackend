@@ -124,66 +124,6 @@ namespace MMABackend.Migrations
                     b.ToTable("CategoryPropertyKeys");
                 });
 
-            modelBuilder.Entity("MMABackend.DomainModels.Common.CollectivePurchaser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("AddedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BuyerId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CollectiveSoldProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CollectiveSoldProductId");
-
-                    b.HasIndex("BuyerId", "CollectiveSoldProductId")
-                        .IsUnique();
-
-                    b.ToTable("CollectivePurchasers");
-                });
-
-            modelBuilder.Entity("MMABackend.DomainModels.Common.CollectiveSoldProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BuyerMinAmount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("CollectivePrice")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool?>("IsActual")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId", "IsActual")
-                        .IsUnique();
-
-                    b.ToTable("CollectiveSoldProducts");
-                });
-
             modelBuilder.Entity("MMABackend.DomainModels.Common.Favorite", b =>
                 {
                     b.Property<int>("Id")
@@ -203,6 +143,66 @@ namespace MMABackend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Favorites");
+                });
+
+            modelBuilder.Entity("MMABackend.DomainModels.Common.GroupDiscountProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BuyerMinAmount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("GroupDiscountPrice")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool?>("IsActual")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId", "IsActual")
+                        .IsUnique();
+
+                    b.ToTable("GroupDiscountProducts");
+                });
+
+            modelBuilder.Entity("MMABackend.DomainModels.Common.GroupDiscountProductBuyer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BuyerId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("GroupDiscountProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupDiscountProductId");
+
+                    b.HasIndex("BuyerId", "GroupDiscountProductId")
+                        .IsUnique();
+
+                    b.ToTable("CollectivePurchasers");
                 });
 
             modelBuilder.Entity("MMABackend.DomainModels.Common.Market", b =>
@@ -292,7 +292,7 @@ namespace MMABackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("LiteralValue")
+                    b.Property<int?>("NumberValue")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProductId")
@@ -332,6 +332,8 @@ namespace MMABackend.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("PropertyKeys");
                 });
@@ -697,34 +699,6 @@ namespace MMABackend.Migrations
                     b.Navigation("PropertyKey");
                 });
 
-            modelBuilder.Entity("MMABackend.DomainModels.Common.CollectivePurchaser", b =>
-                {
-                    b.HasOne("MMABackend.DomainModels.Common.User", "Buyer")
-                        .WithMany()
-                        .HasForeignKey("BuyerId");
-
-                    b.HasOne("MMABackend.DomainModels.Common.CollectiveSoldProduct", "CollectiveSoldProduct")
-                        .WithMany("CollectivePurchasers")
-                        .HasForeignKey("CollectiveSoldProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Buyer");
-
-                    b.Navigation("CollectiveSoldProduct");
-                });
-
-            modelBuilder.Entity("MMABackend.DomainModels.Common.CollectiveSoldProduct", b =>
-                {
-                    b.HasOne("MMABackend.DomainModels.Common.Product", "Product")
-                        .WithMany("CollectiveSoldProducts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("MMABackend.DomainModels.Common.Favorite", b =>
                 {
                     b.HasOne("MMABackend.DomainModels.Common.Product", "Product")
@@ -738,6 +712,34 @@ namespace MMABackend.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MMABackend.DomainModels.Common.GroupDiscountProduct", b =>
+                {
+                    b.HasOne("MMABackend.DomainModels.Common.Product", "Product")
+                        .WithMany("CollectiveSoldProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MMABackend.DomainModels.Common.GroupDiscountProductBuyer", b =>
+                {
+                    b.HasOne("MMABackend.DomainModels.Common.User", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId");
+
+                    b.HasOne("MMABackend.DomainModels.Common.GroupDiscountProduct", "GroupDiscountProduct")
+                        .WithMany("CollectivePurchasers")
+                        .HasForeignKey("GroupDiscountProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("GroupDiscountProduct");
                 });
 
             modelBuilder.Entity("MMABackend.DomainModels.Common.Product", b =>
@@ -795,6 +797,17 @@ namespace MMABackend.Migrations
                     b.Navigation("PropertyKey");
 
                     b.Navigation("PropertyValue");
+                });
+
+            modelBuilder.Entity("MMABackend.DomainModels.Common.PropertyKey", b =>
+                {
+                    b.HasOne("MMABackend.DomainModels.Common.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("MMABackend.DomainModels.Common.PropertyValue", b =>
@@ -923,7 +936,7 @@ namespace MMABackend.Migrations
                     b.Navigation("SubCategories");
                 });
 
-            modelBuilder.Entity("MMABackend.DomainModels.Common.CollectiveSoldProduct", b =>
+            modelBuilder.Entity("MMABackend.DomainModels.Common.GroupDiscountProduct", b =>
                 {
                     b.Navigation("CollectivePurchasers");
                 });

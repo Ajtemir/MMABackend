@@ -10,17 +10,17 @@ namespace MMABackend.DomainModels.Common
     /// <summary>
     /// Коллективные покупатели
     /// </summary>
-    [Index(nameof(BuyerId), nameof(CollectiveSoldProductId), IsUnique = true)]
-    public class CollectivePurchaser
+    [Index(nameof(BuyerId), nameof(GroupDiscountProductId), IsUnique = true)]
+    public class GroupDiscountProductBuyer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string BuyerId { get; set; }
         public User Buyer { get; set; }
-        public int CollectiveSoldProductId { get; set; }
-        [ForeignKey(nameof(CollectiveSoldProductId))]
-        public CollectiveSoldProduct CollectiveSoldProduct { get; set; }
+        public int GroupDiscountProductId { get; set; }
+        [ForeignKey(nameof(GroupDiscountProductId))]
+        public GroupDiscountProduct GroupDiscountProduct { get; set; }
 
         public DateTime AddedDate { get; set; } = DateTime.Now;
     }

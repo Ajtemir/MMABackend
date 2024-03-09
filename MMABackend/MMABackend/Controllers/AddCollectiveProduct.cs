@@ -6,26 +6,26 @@ using MMABackend.Helpers.Common;
 
 namespace MMABackend.Controllers
 {
-    public partial class CollectiveTradeController
+    public partial class GroupDiscountController
     {
         [HttpPost]
-        public ActionResult AddCollectiveProduct(AddCollectiveProductArgument argument) => Execute(() =>
+        public ActionResult AddGroupDiscountProduct(AddCollectiveProductArgument argument) => Execute(() =>
         {
             var buyerId = _uow.GetUserByEmailOrError(argument.BuyerEmail).Id;
-            var product = _uow.CollectiveSoldProducts
+            var product = _uow.GroupDiscountProducts
                 .FirstOrError(x => x.ProductId == argument.ProductId && x.IsActual.Value);
             _uow.CollectivePurchasers.ErrorIfExists(x =>
-                x.CollectiveSoldProductId == product.Id && x.BuyerId == buyerId, "Уже есть оказся");
-            _uow.CollectivePurchasers.Add(new CollectivePurchaser
+                x.GroupDiscountProductId == product.Id && x.BuyerId == buyerId, "Уже есть оказся");
+            _uow.CollectivePurchasers.Add(new GroupDiscountProductBuyer
             {
-                CollectiveSoldProductId = product.Id,
+                GroupDiscountProductId = product.Id,
                 BuyerId = buyerId,
             });
             _uow.SaveChanges();
             
             return new CollectiveProductResult
             {
-                CurrentBuyerCount = _uow.CollectivePurchasers.Count(x => x.CollectiveSoldProductId == product.Id),
+                CurrentBuyerCount = _uow.CollectivePurchasers.Count(x => x.GroupDiscountProductId == product.Id),
             };
         });
     }

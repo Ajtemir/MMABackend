@@ -2,7 +2,7 @@
 
 namespace MMABackend.DomainModels.Common
 {
-    public partial class CollectiveSoldProduct
+    public partial class GroupDiscountProduct
     {
         [NotMapped] public int CurrentPurchasersCount => CollectivePurchasers.Count;
     }

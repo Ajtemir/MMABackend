@@ -6,7 +6,7 @@ namespace MMABackend.DataAccessLayer
     public static partial class DataSeeding
     {
         private static void MakeCollectiveSeeding(this UnitOfWork uow) => uow.Execute(
-            new CollectiveSoldProduct
+            new GroupDiscountProduct
             {
                 Id = 1,
                 ProductId = 2,
@@ -14,10 +14,10 @@ namespace MMABackend.DataAccessLayer
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(2),
                 Status = CollectiveProductStatus.Actual,
-                CollectivePrice = 30M,
+                GroupDiscountPrice = 30M,
                 BuyerMinAmount = 5,
             },
-            new CollectiveSoldProduct
+            new GroupDiscountProduct
             {
                 Id = 2,
                 ProductId = 1,
@@ -25,7 +25,7 @@ namespace MMABackend.DataAccessLayer
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(2),
                 Status = CollectiveProductStatus.Actual,
-                CollectivePrice = 25M,
+                GroupDiscountPrice = 25M,
                 BuyerMinAmount = 2,
             }
         );

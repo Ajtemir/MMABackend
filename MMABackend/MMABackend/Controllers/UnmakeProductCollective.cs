@@ -4,12 +4,12 @@ using MMABackend.Helpers.Common;
 
 namespace MMABackend.Controllers
 {
-    public partial class CollectiveTradeController
+    public partial class GroupDiscountController
     {
         [HttpDelete]
-        public ActionResult UnmakeProductCollective([FromBody] UnmakeProductCollectiveArgument argument) => Execute(() =>
+        public ActionResult UnmakeProductGroupDiscount([FromBody] UnmakeProductGroupDiscountArgument argument) => Execute(() =>
             {
-                var product = _uow.CollectiveSoldProducts.FirstOrError(x=>x.ProductId == argument.ProductId && x.IsActual.Value);
+                var product = _uow.GroupDiscountProducts.FirstOrError(x=>x.ProductId == argument.ProductId && x.IsActual.Value);
                 product.Status = CollectiveProductStatus.Canceled;
                 product.IsActual = null;
                 _uow.SaveChanges();
@@ -17,7 +17,7 @@ namespace MMABackend.Controllers
         );
     }
 
-    public class UnmakeProductCollectiveArgument
+    public class UnmakeProductGroupDiscountArgument
     {
         public int ProductId { get; set; }
     }

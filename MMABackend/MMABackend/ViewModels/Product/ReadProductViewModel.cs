@@ -28,14 +28,14 @@ namespace MMABackend.ViewModels.Product
                 CategoryId = entity.CategoryId,
                 CategoryName = entity.Category?.Name,
                 Images = entity.Photos?.Select(x=> x.Path).ToList() ?? new List<string>(),
-                CollectiveInfo = entity.CollectiveSoldProduct == null 
+                CollectiveInfo = entity.GroupDiscountProduct == null 
                     ? null
                     : new CollectiveInfo(
-                        currentBuyerCount: entity.CollectiveSoldProduct.CurrentPurchasersCount,
-                        discountedPrice: entity.CollectiveSoldProduct.CollectivePrice,
-                        minBuyerCount: entity.CollectiveSoldProduct.BuyerMinAmount,
-                        startDate: entity.CollectiveSoldProduct.StartDate,
-                        endDate: entity.CollectiveSoldProduct.EndDate
+                        currentBuyerCount: entity.GroupDiscountProduct.CurrentPurchasersCount,
+                        groupDiscountPrice: entity.GroupDiscountProduct.GroupDiscountPrice,
+                        minBuyerCount: entity.GroupDiscountProduct.BuyerMinAmount,
+                        startDate: entity.GroupDiscountProduct.StartDate,
+                        endDate: entity.GroupDiscountProduct.EndDate
                     ),
             };
         }
@@ -43,10 +43,10 @@ namespace MMABackend.ViewModels.Product
 
     public class CollectiveInfo
     {
-        public CollectiveInfo(int currentBuyerCount, decimal discountedPrice, int minBuyerCount, DateTime startDate, DateTime endDate)
+        public CollectiveInfo(int currentBuyerCount, decimal groupDiscountPrice, int minBuyerCount, DateTime startDate, DateTime endDate)
         {
             CurrentBuyerCount = currentBuyerCount;
-            DiscountedPrice = discountedPrice;
+            GroupDiscountPrice = groupDiscountPrice;
             MinBuyerCount = minBuyerCount;
             StartDate = startDate;
             EndDate = endDate;
@@ -54,7 +54,7 @@ namespace MMABackend.ViewModels.Product
 
         public int MinBuyerCount { get; set; }
         public int CurrentBuyerCount { get; set; }
-        public decimal DiscountedPrice { get; set; }
+        public decimal GroupDiscountPrice { get; set; }
         public DateTime StartDate { get;  }
         public DateTime EndDate { get; set; }
     } 

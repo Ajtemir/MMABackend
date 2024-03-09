@@ -32,7 +32,7 @@ namespace MMABackend.Controllers
             
             var isVoted = isSeller
                 ? sellerCannotMakeCollectiveOwnProduct
-                : product.CollectiveSoldProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
+                : product.GroupDiscountProduct?.CollectivePurchasers?.Exists(x => x.BuyerId == user.Id);
 
             AuctionState auctionState = isSeller
                 ? product.AuctionProduct == null
@@ -132,14 +132,14 @@ namespace MMABackend.Controllers
                 Images = entity.Photos?.Select(x=> x.Path).ToList() ?? new List<string>(),
                 IsFavorite = entity.Favorites.FirstOrDefault() is not null,
                 FavoriteCount = entity.Favorites.Count,
-                CollectiveInfo = entity.CollectiveSoldProduct == null 
+                CollectiveInfo = entity.GroupDiscountProduct == null 
                     ? null
                     : new CollectiveInfo(
-                        entity.CollectiveSoldProduct.CurrentPurchasersCount,
-                        entity.CollectiveSoldProduct.CollectivePrice,
-                        entity.CollectiveSoldProduct.BuyerMinAmount,
-                        entity.CollectiveSoldProduct.StartDate,
-                        entity.CollectiveSoldProduct.EndDate
+                        entity.GroupDiscountProduct.CurrentPurchasersCount,
+                        entity.GroupDiscountProduct.GroupDiscountPrice,
+                        entity.GroupDiscountProduct.BuyerMinAmount,
+                        entity.GroupDiscountProduct.StartDate,
+                        entity.GroupDiscountProduct.EndDate
                     ),
                 AuctionDetail =entity.AuctionProduct == null 
                     ? null 
@@ -165,7 +165,7 @@ namespace MMABackend.Controllers
 
     public record CollectiveInfo(
         int CurrentBuyerCount,
-        decimal DiscountedPrice,
+        decimal GroupDiscountPrice,
         int MinBuyerCount,
         DateTime StartDate,
         DateTime EndDate

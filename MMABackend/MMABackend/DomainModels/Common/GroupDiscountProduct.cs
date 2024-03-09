@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MMABackend.DomainModels.Common
 {
     [Index(nameof(ProductId), nameof(IsActual), IsUnique = true)]
-    public partial class CollectiveSoldProduct
+    public partial class GroupDiscountProduct
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,10 +17,10 @@ namespace MMABackend.DomainModels.Common
         public Product Product { get; set; }
         public CollectiveProductStatus Status { get; set; } = CollectiveProductStatus.Actual;
         public bool? IsActual { get; set; } = true;
-        public decimal CollectivePrice { get; set; }
+        public decimal GroupDiscountPrice { get; set; }
         public int BuyerMinAmount { get; set; }
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; }
-        public ICollection<CollectivePurchaser> CollectivePurchasers { get; set; } = new List<CollectivePurchaser>();
+        public ICollection<GroupDiscountProductBuyer> CollectivePurchasers { get; set; } = new List<GroupDiscountProductBuyer>();
     }
 }

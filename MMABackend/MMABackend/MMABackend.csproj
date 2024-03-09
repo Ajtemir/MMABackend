@@ -28,6 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="database\" />
       <Folder Include="wwwroot\categories" />
     </ItemGroup>
 
@@ -98,25 +99,25 @@
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
       <Compile Update="DomainModels\Common\AdditionalInfo.cs">
-        <DependentUpon>CollectiveSoldProduct.cs</DependentUpon>
+        <DependentUpon>GroupDiscountProduct.cs</DependentUpon>
       </Compile>
       <Compile Update="Controllers\MakeProductCollective.cs">
-        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+        <DependentUpon>GroupDiscountController.cs</DependentUpon>
       </Compile>
       <Compile Update="Controllers\UnmakeProductCollective.cs">
-        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+        <DependentUpon>GroupDiscountController.cs</DependentUpon>
       </Compile>
       <Compile Update="Controllers\AddCollectiveProduct.cs">
-        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+        <DependentUpon>GroupDiscountController.cs</DependentUpon>
       </Compile>
       <Compile Update="Controllers\RemoveProduct.cs">
-        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+        <DependentUpon>GroupDiscountController.cs</DependentUpon>
       </Compile>
       <Compile Update="Controllers\SubmitDeal.cs">
-        <DependentUpon>CollectiveTradeController.cs</DependentUpon>
+        <DependentUpon>GroupDiscountController.cs</DependentUpon>
       </Compile>
       <Compile Update="DomainModels\Common\CollectiveProductStatus.cs">
-        <DependentUpon>CollectiveSoldProduct.cs</DependentUpon>
+        <DependentUpon>GroupDiscountProduct.cs</DependentUpon>
       </Compile>
       <Compile Update="DataAccessLayer\MakeCollectiveSeeding.cs">
         <DependentUpon>DataSeed.cs</DependentUpon>

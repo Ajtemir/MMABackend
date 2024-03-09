@@ -34,12 +34,12 @@ namespace MMABackend.DomainModels.Common
         public ICollection<ProductProperty> ProductProperties { get; set; } = new List<ProductProperty>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 
-        public ICollection<CollectiveSoldProduct> CollectiveSoldProducts { get; set; } =
-            new List<CollectiveSoldProduct>();
+        public ICollection<GroupDiscountProduct> CollectiveSoldProducts { get; set; } =
+            new List<GroupDiscountProduct>();
 
         public ICollection<AuctionProduct> AuctionProducts { get; set; } = new List<AuctionProduct>();
         [NotMapped]
-        public CollectiveSoldProduct CollectiveSoldProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
+        public GroupDiscountProduct GroupDiscountProduct => CollectiveSoldProducts.FirstOrDefault(x => x.IsActual != null && x.IsActual.Value);
         [NotMapped]
         public AuctionProduct AuctionProduct => AuctionProducts.FirstOrDefault(x =>x.IsAuctionElseReduction && x.Status == AuctionProductStatus.Actual);
         public AuctionProduct ReductionProduct => AuctionProducts.FirstOrDefault(x => !x.IsAuctionElseReduction && x.Status == AuctionProductStatus.Actual);

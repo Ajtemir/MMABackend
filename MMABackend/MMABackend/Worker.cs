@@ -22,7 +22,7 @@ namespace MMABackend
             {
                 await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                 var uow = _serviceScopeFactory.CreateScope().ServiceProvider.GetService<UnitOfWork>();
-                uow.CollectiveSoldProducts.Where(x => x.EndDate <= DateTime.Now).ToList().ForEach(x =>
+                uow.GroupDiscountProducts.Where(x => x.EndDate <= DateTime.Now).ToList().ForEach(x =>
                 {
                     x.Status = CollectiveProductStatus.Expired;
                 });

@@ -6,10 +6,10 @@ namespace MMABackend.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public partial class CollectiveTradeController : BaseController
+    public partial class GroupDiscountController : BaseController
     {
         private readonly UnitOfWork _uow;
-        public CollectiveTradeController(ILogger<CollectiveTradeController> logger, UnitOfWork uow) : base(logger)
+        public GroupDiscountController(ILogger<GroupDiscountController> logger, UnitOfWork uow) : base(logger)
         {
             _uow = uow;
         }
