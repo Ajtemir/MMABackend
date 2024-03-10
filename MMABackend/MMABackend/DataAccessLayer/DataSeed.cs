@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MMABackend.DomainModels.Common;
@@ -141,31 +143,36 @@ namespace MMABackend.DataAccessLayer
 
         private static void ProductImageSeeding(this UnitOfWork uow)
         {
-            var folderName = "/images/";
+            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+           
             uow.ProductPhotos.AddRange(
                 new ProductPhoto
                 {
                     Id = 1,
                     ProductId = 1,
-                    Path = folderName + "1_photo.jpg",
+                    File = File.ReadAllBytes(Path.Combine(imagesFolder, "1_photo.jpg")),
+                    FileName = "1_photo.jpg"
                 },
                 new ProductPhoto
                 {
                     Id = 2,
                     ProductId = 2,
-                    Path = folderName + "2_photo.jpg",
+                    File = File.ReadAllBytes(Path.Combine(imagesFolder, "2_photo.jpg")),
+                    FileName = "2_photo.jpg"
                 },
                 new ProductPhoto
                 {
                     Id = 3,
                     ProductId = 3,
-                    Path = folderName + "3_photo.jpg",
+                    File = File.ReadAllBytes(Path.Combine(imagesFolder, "3_photo.jpg")),
+                    FileName = "3_photo.jpg"
                 },
                 new ProductPhoto
                 {
                     Id = 4,
                     ProductId = 4,
-                    Path = folderName + "4_photo.jpg",
+                    File = File.ReadAllBytes(Path.Combine(imagesFolder, "4_photo.jpg")),
+                    FileName = "4_photo.jpg"
                 }
             );
             uow.SaveChangesWithIdentityInsert<ProductPhoto>();

@@ -12,7 +12,12 @@ namespace MMABackend.DomainModels.Common
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonIgnore]
         public int Id { get; set; }
-        public string Path { get; set; }
+
+        public byte[] File { get; set; }
+        public string FileName { get; set; }
+        public string Extension => System.IO.Path.GetExtension(FileName)?.Remove(0);
+        public string ContentType => Extension is null ? null : $"application/${Extension}";
+        public string Path => $"/ProductImage/ProductImage/{Id}";
         [JsonIgnore]
         public DateTime? UploadTime { get; set; } = DateTime.Now;
         [JsonIgnore]

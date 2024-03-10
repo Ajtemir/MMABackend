@@ -239,6 +239,9 @@
       <Compile Update="Controllers\SearchProducts.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetProductImage.cs">
+        <DependentUpon>ProductImageController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

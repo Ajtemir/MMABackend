@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MMABackend.DataAccessLayer;
 using MMABackend.DomainModels.Common;
+using MMABackend.Utilities.Extensions;
 using MMABackend.ViewModels.Common;
 
 namespace MMABackend.Controllers
@@ -54,14 +55,20 @@ namespace MMABackend.Controllers
         {
             foreach (var uploadedFile in model.Images)
             {
-                var extension = Path.GetExtension(uploadedFile.FileName)!;
-                var fileName = Guid.NewGuid();
-                const string folder = "/images/";
-                string path =  folder + fileName + extension;
-                await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                    await uploadedFile.CopyToAsync(fileStream);
-                var file = new ProductPhoto { ProductId = productId, Path = path,  };
-                _uow.ProductPhotos.Add(file);
+                _uow.ProductPhotos.Add(new ProductPhoto
+                {
+                    ProductId = productId,
+                    FileName = uploadedFile.FileName,
+                    File = await uploadedFile.GetBytesAsync()
+                });
+                // var extension = Path.GetExtension(uploadedFile.FileName)!;
+                // var fileName = Guid.NewGuid();
+                // const string folder = "/images/";
+                // string path =  folder + fileName + extension;
+                // await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                //     await uploadedFile.CopyToAsync(fileStream);
+                // var file = new ProductPhoto { ProductId = productId, Path = path,  };
+                // _uow.ProductPhotos.Add(file);
             }
             await _uow.SaveChangesAsync();
             return Ok();
