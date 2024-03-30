@@ -49,18 +49,21 @@ namespace MMABackend.Controllers
                                    (rp.EndValue == null || pp.NumberValue <= rp.EndValue))
                 )).ToList();
             }
-            
-            return productsFilteredByMainData;
+
+            var result = productsFilteredByMainData.ToPagedList(argument.PageNumber,argument.PageSize);
+            return result;
         });
     }
 
-    public class SearchArgument
+    public class SearchArgument : IPagination
     {
         public string Description { get; set; }
         public decimal? StartPrice { get; set; }
         public decimal? EndPrice { get; set; }
         public int? CategoryId { get; set; }
         public PropertyFilter[] PropertyFilters { get; set; } = Array.Empty<PropertyFilter>();
+        public int PageSize { get; set; } = 10;
+        public int PageNumber { get; set; } = 1;
     }
 
     public class PropertyFilter
@@ -71,5 +74,39 @@ namespace MMABackend.Controllers
         public int SingleValues { get; set; }
         public int? StartValue { get; set; }
         public int? EndValue { get; set; }
+    }
+
+    public interface IPagination
+    {
+        public int PageSize { get; set; }
+        public int PageNumber { get; set; }
+    }
+
+    public static class Paginate
+    {
+        public static PagedList<T> ToPagedList<T>(this List<T> source, int pageNumber, int pageSize)
+        {
+            var count = source.Count();
+            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+        }
+    }
+    
+    public class PagedList<T> : List<T>
+    {
+        public int CurrentPage { get; private set; }
+        public int TotalPages { get; private set; }
+        public int PageSize { get; private set; }
+        public int TotalCount { get; private set; }
+        public bool HasPrevious => CurrentPage > 1;
+        public bool HasNext => CurrentPage < TotalPages;
+        public PagedList(List<T> items, int count, int pageNumber, int pageSize)
+        {
+            TotalCount = count;
+            PageSize = pageSize;
+            CurrentPage = pageNumber;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            AddRange(items);
+        }
     }
 }
