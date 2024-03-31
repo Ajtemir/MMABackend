@@ -23,7 +23,7 @@ namespace MMABackend.Controllers
                 singleAndMultiValues.Add(multiFilter.SingleValues);
             }
             
-            var productsFilteredByMainData = _uow.Products
+            IEnumerable<Product> productsFilteredByMainData = _uow.Products
                 .Include(x=>x.ProductProperties)
                 .Where(x =>
                     (argument.Description == null || x.Description.Contains(argument.Description)) &&
@@ -50,7 +50,29 @@ namespace MMABackend.Controllers
                 )).ToList();
             }
 
+            if (argument.OrderByDate.HasValue)
+            {
+                productsFilteredByMainData = argument.OrderByDate switch
+                {
+                    OrderByDate.DateAsc => productsFilteredByMainData.OrderBy(x => x.CreatedDate),
+                    OrderByDate.DateDesc => productsFilteredByMainData.OrderByDescending(x => x.CreatedDate),
+                    _ => productsFilteredByMainData
+                };
+            }
+
+            if (argument.OrderByPrice.HasValue)
+            {
+                productsFilteredByMainData = argument.OrderByPrice switch
+                {
+                    OrderByPrice.PriceAsc => productsFilteredByMainData.OrderBy(x => x.Price),
+                    OrderByPrice.PriceDesc => productsFilteredByMainData.OrderByDescending(x => x.Price),
+                    _ => productsFilteredByMainData
+                };
+                
+            }
+
             var result = productsFilteredByMainData.ToPagedList(argument.PageNumber,argument.PageSize);
+            
             return result;
         });
     }
@@ -64,6 +86,21 @@ namespace MMABackend.Controllers
         public PropertyFilter[] PropertyFilters { get; set; } = Array.Empty<PropertyFilter>();
         public int PageSize { get; set; } = 10;
         public int PageNumber { get; set; } = 1;
+        public OrderByPrice? OrderByPrice { get; set; }
+        public OrderByDate? OrderByDate { get; set; }
+    }
+
+    public enum OrderByPrice
+    {
+        PriceAsc = 0,
+        PriceDesc,
+        
+    }
+
+    public enum OrderByDate
+    {
+        DateAsc = 0,
+        DateDesc,
     }
 
     public class PropertyFilter
@@ -84,7 +121,7 @@ namespace MMABackend.Controllers
 
     public static class Paginate
     {
-        public static PagedList<T> ToPagedList<T>(this List<T> source, int pageNumber, int pageSize)
+        public static PagedList<T> ToPagedList<T>(this IEnumerable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
