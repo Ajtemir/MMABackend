@@ -242,6 +242,9 @@
       <Compile Update="Controllers\GetProductImage.cs">
         <DependentUpon>ProductImageController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\GetProductPropertiesByProductId.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

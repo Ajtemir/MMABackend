@@ -63,6 +63,7 @@ namespace MMABackend.Controllers
     public class Property
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public bool? IsMultipleOrLiteralDefault { get; set; }
         public ICollection<PropertyValue> PropertyValues { get; set; }
         public List<int> CurrentMultiValues { get; set; } = new();
