@@ -6,7 +6,7 @@ using MMABackend.Controllers;
 
 namespace MMABackend.DataAccessLayer.Extensions
 {
-    public static class DbContextExtensions
+    public static partial class DbContextExtensions
     {
         public static List<Property> GetProductProperties(this UnitOfWork uow, int productId)
         {

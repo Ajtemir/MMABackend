@@ -245,6 +245,9 @@
       <Compile Update="Controllers\GetProductPropertiesByProductId.cs">
         <DependentUpon>ProductsController.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controllers\UpdateProperties.cs">
+        <DependentUpon>ProductsController.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
