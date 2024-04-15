@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="database\" />
+      <Folder Include="database" />
       <Folder Include="wwwroot\categories" />
     </ItemGroup>
 
