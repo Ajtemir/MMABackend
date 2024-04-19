@@ -17,39 +17,45 @@ namespace MMABackend.DataAccessLayer.Extensions
                 .FirstOrDefault(x=>x.Id == productId);
             if (product == null)
                 throw new Exception("Not found product");
-            var properties = product.ProductProperties.GroupBy(x => x.PropertyKey)
-                .Select(group =>
+            var propertyKeys = uow.CategoryPropertyKeys
+                .Include(x => x.PropertyKey)
+                .ThenInclude(x => x.PropertyValues)
+                .Where(x => x.CategoryId == product.CategoryId)
+                .Select(x=>new Property
                 {
-                    var keyProperty = new Property
-                    {
-                        Id = group.Key.Id,
-                        IsMultipleOrLiteralDefault = group.Key.IsMultipleOrLiteralDefault,
-                        PropertyValues = group.Key.PropertyValues,
-                        Name = group.Key.Name,
-                    };
-                    switch (group.Key.IsMultipleOrLiteralDefault)
-                    {
-                        case true:
-                            foreach (var productProperty in group)
+                    Id = x.PropertyKey.Id,
+                    IsMultipleOrLiteralDefault = x.PropertyKey.IsMultipleOrLiteralDefault,
+                    PropertyValues = x.PropertyKey.PropertyValues,
+                    Name = x.PropertyKey.Name,
+                })
+                .ToList();
+
+            foreach (var group in product.ProductProperties.GroupBy(x=>x.PropertyKeyId))
+            {
+                var propertyKey = propertyKeys.FirstOrDefault(x => x.Id == group.Key);
+                if(propertyKey == null) continue;
+                switch (propertyKey.IsMultipleOrLiteralDefault)
+                {
+                    case true:
+                        foreach (var productProperty in group)
+                        {
+                            if (productProperty?.PropertyValueId != null)
                             {
-                                if (productProperty?.PropertyValueId != null)
-                                {
-                                    keyProperty.CurrentMultiValues.Add(productProperty.PropertyValueId.Value);
-                                }
+                                propertyKey.CurrentMultiValues.Add(productProperty.PropertyValueId.Value);
                             }
-                            break;
+                        }
+                        break;
                     
-                        case false:
-                            keyProperty.CurrentSingleValue = group.FirstOrDefault()?.PropertyValueId;
-                            break;
+                    case false:
+                        propertyKey.CurrentSingleValue = group.FirstOrDefault()?.PropertyValueId;
+                        break;
                     
-                        case null:
-                            keyProperty.CurrentNumberValue = group.FirstOrDefault()?.NumberValue;
-                            break;
-                    }
-                    return keyProperty;
-                }).ToList();
-            return properties;
+                    case null:
+                        propertyKey.CurrentNumberValue = group.FirstOrDefault()?.NumberValue;
+                        break;
+                }
+            }
+            return propertyKeys;
         }
     }
 }
