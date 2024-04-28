@@ -38,14 +38,6 @@ namespace MMABackend.Controllers
             _uow.SaveChanges();
             return Ok((ReadProductViewModel)product);
         }
-
-        [HttpPut]
-        public ActionResult<List<Product>> Update(Product entity)
-        {
-            _uow.Products.Update(entity);
-            _uow.SaveChanges();
-            return Ok(entity);
-        }
         
         [HttpDelete]
         public ActionResult<List<Product>> Delete(int entityId)
