@@ -26,10 +26,12 @@ namespace MMABackend.Controllers
             IEnumerable<Product> productsFilteredByMainData = _uow.Products
                 .Include(x=>x.ProductProperties)
                 .Where(x =>
-                    (argument.Description == null || x.Description.Contains(argument.Description)) &&
                     ((argument.StartPrice == null && argument.EndPrice == null) || x.Price == null || argument.StartPrice <= x.Price && x.Price <= argument.EndPrice) &&
                     (argument.CategoryId == null || x.CategoryId == argument.CategoryId)
                 ).ToList();
+            productsFilteredByMainData = productsFilteredByMainData.Where(x =>
+                (argument.Description == null ||
+                 x.Description.Contains(argument.Description, StringComparison.InvariantCultureIgnoreCase)));
 
             if (singleAndMultiValues.Any())
             {
