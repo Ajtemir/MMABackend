@@ -45,6 +45,7 @@ namespace MMABackend.Controllers
         {
             if (_userManager.Users.FirstOrDefault(x => x.Email == viewModel.Email) != null)
                 throw new Exception("User already registered");
+            _userManager.PasswordValidators.Clear();
             var result = await _userManager.CreateAsync(viewModel, viewModel.Password);
 
             return result.Succeeded ? Ok(result) : BadRequest(result);
