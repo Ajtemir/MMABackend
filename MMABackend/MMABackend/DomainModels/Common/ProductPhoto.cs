@@ -13,8 +13,8 @@ namespace MMABackend.DomainModels.Common
         [JsonIgnore]
         public int Id { get; set; }
 
-        public byte[] File { get; set; }
         [JsonIgnore]
+        public byte[] File { get; set; }
         public string FileName { get; set; }
         public string Extension => System.IO.Path.GetExtension(FileName)?.Remove(0);
         public string ContentType => Extension is null ? null : $"application/${Extension}";
