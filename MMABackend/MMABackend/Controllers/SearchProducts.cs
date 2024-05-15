@@ -24,8 +24,7 @@ namespace MMABackend.Controllers
             }
             
             IEnumerable<Product> productsFilteredByMainData = _uow.Products
-                .Include(x=>x.ProductProperties)
-                .Include(x=>x.Photos)
+                .Include(x => x.Photos).Include(product => product.ProductProperties)
                 .Where(x =>
                     ((argument.StartPrice == null && argument.EndPrice == null) || x.Price == null || argument.StartPrice <= x.Price && x.Price <= argument.EndPrice) &&
                     (argument.CategoryId == null || x.CategoryId == argument.CategoryId)

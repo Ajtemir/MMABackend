@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace MMABackend.DomainModels.Common
 {
