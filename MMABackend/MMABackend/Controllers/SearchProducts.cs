@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MMABackend.DomainModels.Common;
+using MMABackend.ViewModels.Product;
 
 namespace MMABackend.Controllers
 {
@@ -73,7 +74,9 @@ namespace MMABackend.Controllers
                 
             }
 
-            var result = productsFilteredByMainData.ToPagedList(argument.PageNumber,argument.PageSize);
+            var list = productsFilteredByMainData.Select(x => (ReadProductViewModel)x).ToList();
+
+            var result = list.ToPagedList(argument.PageNumber,argument.PageSize);
             
             return result;
         });

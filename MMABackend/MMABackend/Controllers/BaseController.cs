@@ -34,13 +34,13 @@ namespace MMABackend.Controllers
             }
         }
 
-        protected ActionResult Execute<T>(Func<T> func)
+        protected ActionResult Execute<T>(Func<T> func) where T:class
         {
             try
             {
                 return Ok(Result.Ok(
                     typeof(T) == typeof(Task)
-                        ? default
+                        ? null
                         : func.Invoke()));
             }
             catch (ApplicationException e)
