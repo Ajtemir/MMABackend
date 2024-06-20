@@ -20,7 +20,7 @@ namespace MMABackend
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseUrls("http://*:8080")
+                        .UseUrls("http://localohost:8090")
                         // .UseStartup<Startup>().UseIISIntegration(); 
                         .Configure(app => {})
                         ;
