@@ -17,9 +17,13 @@ namespace MMABackend
                 {
                     services.AddHostedService<Worker>();
                 })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder
-                    .UseUrls("http://*:8080")
-                    .UseStartup<Startup>().UseIISIntegration(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder
+                        .UseUrls("http://*:8080")
+                        // .UseStartup<Startup>().UseIISIntegration(); 
+                        ;
+                });
     }
 
     
