@@ -22,6 +22,7 @@ namespace MMABackend
                     webBuilder
                         .UseUrls("http://*:8080")
                         // .UseStartup<Startup>().UseIISIntegration(); 
+                        .Configure(app => {})
                         ;
                 });
     }
