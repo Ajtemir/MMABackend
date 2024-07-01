@@ -15,16 +15,9 @@ namespace MMABackend
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    // services.AddHostedService<Worker>();
+                    services.AddHostedService<Worker>();
                 })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder
-                        // .UseUrls("http://localohost:8090")
-                        // .UseStartup<Startup>().UseIISIntegration(); 
-                        .Configure(app => {})
-                        ;
-                });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.Configure(app => {}).UseStartup<Startup>(); });
     }
 
     
